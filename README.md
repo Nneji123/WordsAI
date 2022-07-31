@@ -1,5 +1,7 @@
-# 
-<h1 align="center">WordsAI</h1>
+<p align="center">
+  <img width="300" height="300" src="https://user-images.githubusercontent.com/101701760/182023528-7da7205e-1fc6-49c9-832d-b3f40a68eae8.png">
+</p>
+
 
 [![Language](https://img.shields.io/badge/Python-darkblue.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![Framework](https://img.shields.io/badge/Keras-darkred.svg?style=flat&logo=keras&logoColor=white)](http://www.Keras.org/news.html)
