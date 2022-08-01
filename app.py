@@ -7,7 +7,8 @@ from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
 from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
 from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
 from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
-from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
+from translate import Translator
+from autocorrect import Speller
 
 
 app = FastAPI(
@@ -97,6 +98,7 @@ async def get_summary(text: str) -> dict:
     result_dict = auto_abstractor.summarize(text, abstractable_doc)
     return result_dict
 
+
 @app.post("/summarize_webpage")
 async def get_summary_webpage(url):
     """
@@ -135,3 +137,70 @@ async def get_summary_webpage(url):
             break
         i += 1
     return result_dict
+
+
+@app.post("/translate")
+async def get_translation(language: str, text: str) -> str:
+    """
+    The get_translation function accepts a string as an argument and returns the translation of that string.
+    The function uses the Translator library to translate the text.
+    Languages available:
+        - af: Afrikaans
+        - sq: Albanian
+        - ar: Arabic
+        - hy: Armenian
+        - az: Azerbaijani
+        - eu: Basque
+        - be: Belarusian
+        - bg: Bulgarian
+        - ca: Catalan
+        - zh-CN: Chinese (Simplified)
+        - zh-TW: Chinese (Traditional)
+        - hr: Croatian
+        - cs: Czech
+        - da: Danish
+        - nl: Dutch
+        - en: English
+        - et: Estonian
+        - fi: Finnish
+        - fr: French
+        - gl: Galician
+        - ka: Georgian
+        - de: German
+        - el: Greek
+        - gu: Gujarati
+        - he: Hebrew
+        - hi: Hindi
+        - hu: Hungarian
+        - is: Icelandic
+        and many more...
+    Args:
+        text:str: Pass in the text that is to be translated
+
+    Returns:
+        A string that is the translation of the text
+
+    """
+    # add a function to select the language
+    translator = Translator(to_lang=language)
+    translation = translator.translate(text)
+    return "The translation of the text is: " + translation
+
+
+# add autocorrect route
+@app.post("/autocorrect")
+async def get_autocorrect(language: str, text: str) -> str:
+    """
+    The get_autocorrect function accepts a string as an argument and returns the autocorrected text.
+    The function uses the AutoCorrect library to autocorrect the text.
+    Currently supports English, Polish, Turkish, Russian, Ukrainian, Czech, Portuguese, Greek, Italian, Vietnamese, French and Spanish, but you can easily add new languages.
+    Args:
+        text:str: Pass in the text that is to be autocorrected
+
+    Returns:
+        A string that is the autocorrected text
+
+    """
+    spell = Speller(language)
+    result = spell(text)
+    return "The autocorrected text is: " + result
