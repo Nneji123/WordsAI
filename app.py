@@ -1,5 +1,5 @@
-from fastapi import FastAPI
-from fastapi.responses import FileResponse, PlainTextResponse
+from fastapi import FastAPI, File, UploadFile, Response
+from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from pysummarization.web_scraping import WebScraping
@@ -230,17 +230,11 @@ async def get_ocr(file: UploadFile = File(...)):
     file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
     img = cv2.imdecode(file_bytes, 1)
 	# Converting image to array
-    image_arr = np.array(img.convert('RGB'))
+    image_arr = np.array(img)
 	# Converting image to grayscale
     gray_img_arr = cv2.cvtColor(image_arr, cv2.COLOR_BGR2GRAY)
 	#Converting image back to rbg
     image = Image.fromarray(gray_img_arr)
-
-	# Printing lowercase
-	#letters = string.ascii_lowercase
-	# Generating unique image name for dynamic image display
-	#name = ''.join(random.choice(letters) for i in range(10)) + '.png'
-	#full_filename =  'uploads/' + name
 
 	# Extracting text from image
     custom_config = r'-l eng --oem 3 --psm 6'
@@ -254,7 +248,4 @@ async def get_ocr(file: UploadFile = File(...)):
 
 	# Converting string into list to dislay extracted text in seperate line
     new_string = new_string.split("\n")
-
-	# Saving image to display in html
-    img = Image.fromarray(image_arr, 'RGB')
     return new_string
