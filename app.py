@@ -46,11 +46,19 @@ async def favicon():
 
 @app.get("/", response_class=PlainTextResponse, tags=["home"])
 async def home():
+    """
+    The home function returns a welcome message and some instructions.
+    
+    Args:
+    
+    Returns:
+        A note that is displayed when the user accesses the root of our api
+    """
     note = """
-WordsAI API 📚
-A collection of NLP Applications served as APIs using FastAPI!
-Note: add "/redoc" to get the complete documentation.
-  """
+    WordsAI API 📚
+    A collection of NLP Applications served as APIs using FastAPI!
+    Note: add "/redoc" to get the complete documentation.
+    """
     return note
 
 
