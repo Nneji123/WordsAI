@@ -14,7 +14,6 @@ from fastapi import FastAPI, File, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import (FileResponse, PlainTextResponse,
                                StreamingResponse)
-from pdfrw import PdfReader
 from PIL import Image
 from pyresparser import ResumeParser
 from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
@@ -25,7 +24,6 @@ from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
 from pysummarization.web_scraping import WebScraping
 from translate import Translator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from pydub import AudioSegment
 
 app = FastAPI(
     title="WordsAI API",
