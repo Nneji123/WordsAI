@@ -285,15 +285,25 @@ async def get_ocr(file: UploadFile = File(...)):
 #     data = ResumeParser(contents).get_extracted_data()
 #     return data
 
-# @app.post("/uploadfile/")
-# async def create_upload_file(file: UploadFile):
-#     data = ResumeParser(file.read()).get_extracted_data()
-#     return data
+@app.post("/resume_parser")
+async def resume_parser(file: UploadFile)-> str:
+    # write a function to save the uploaded file and return the file name
+    files = await file.read()
+    # save the file
+    filename = "./temp/file.pdf"
+    with open(filename, "wb+") as f:
+        f.write(files)
+    # open the file and return the file name
 
-# create a route for speech to te
+    with open(filename, "rb") as f:
+        pdf = f.read()
+    data = ResumeParser(filename).get_extracted_data()
+    return data
+
+
 
 @app.post("/speech_to_text")
-async def speech_to_text(file: UploadFile = File(...)):
+async def speech_to_text(file: UploadFile = File(...)) -> str:
     # write a function to save the uploaded file and return the file name
     files = await file.read()
     # save the file
@@ -304,7 +314,6 @@ async def speech_to_text(file: UploadFile = File(...)):
 
     with open(filename, "rb") as f:
         audio = f.read()
-
     r = sr.Recognizer()
     harvard = sr.AudioFile(filename)
     with harvard as source:
