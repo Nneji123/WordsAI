@@ -294,34 +294,21 @@ async def get_ocr(file: UploadFile = File(...)):
 
 @app.post("/speech_to_text")
 async def speech_to_text(file: UploadFile = File(...)):
-    """
-    The get_speech_to_text function accepts a speech as an argument and returns the text extracted from the speech.
-    The function uses the Speech to Text library to extract text from the speech.
-    Args:
-        speech: UploadFile: Pass in the speech that is to be extracted
-    
-    Returns:
-        A string that is the text extracted from the speech
-    """
-    contents = io.BytesIO(await file.read())
-    file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
-    audio = AudioSegment.from_file(file_bytes, format="wav")
+    # write a function to save the uploaded file and return the file name
+    files = await file.read()
+    # save the file
+    filename = "./temp/file.wav"
+    with open(filename, "wb+") as f:
+        f.write(files)
+    # open the file and return the file name
+
+    with open(filename, "rb") as f:
+        audio = f.read()
+
     r = sr.Recognizer()
-    harvard = sr.AudioFile(audio)
+    harvard = sr.AudioFile(filename)
     with harvard as source:
         audio = r.record(source)
     text = r.recognize_sphinx(audio)
     return text
 
-@app.post("/upload-file/")
-async def create_upload_file(file: UploadFile = File(...)):
-    file_location = f"files/{file.filename}"
-    with open(file_location, "wb+") as content:
-        x = content.write(file.file.read())
-    r = sr.Recognizer()
-    harvard = sr.AudioFile(x)
-    with harvard as source:
-        audio = r.record(source)
-    text = r.recognize_sphinx(audio)
-    return text
-    
