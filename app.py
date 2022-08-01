@@ -199,7 +199,6 @@ async def get_autocorrect(language: str, text: str) -> str:
 
     Returns:
         A string that is the autocorrected text
-
     """
     spell = Speller(language)
     result = spell(text)
