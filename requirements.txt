@@ -1,3 +1,4 @@
 fastapi[all]
 pysummarization==1.1.9
 vaderSentiment==3.3.2
+pyquery==1.4.3
