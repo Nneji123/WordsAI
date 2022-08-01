@@ -7,6 +7,7 @@ RUN apt-get -y update  && apt-get install -y \
   apt-utils \
   python-dev \
   swig \
+  tesseract-ocr \
   libpulse-dev \
   build-essential \
 && rm -rf /var/lib/apt/lists/*

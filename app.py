@@ -16,6 +16,7 @@ from PIL import Image
 import random
 import string
 import pytesseract
+import io
 
 
 app = FastAPI(
@@ -215,7 +216,7 @@ async def get_autocorrect(language: str, text: str) -> str:
 
 #create a route for optical character recognition
 @app.post("/ocr")
-async def get_ocr(image: UploadFile = File(...)):
+async def get_ocr(file: UploadFile = File(...)):
     """
     The get_ocr function accepts an image as an argument and returns the text extracted from the image.
     The function uses the OCR library to extract text from the image.
@@ -225,41 +226,35 @@ async def get_ocr(image: UploadFile = File(...)):
     Returns:
         A string that is the text extracted from the image
     """
-    # read the image
-    img = image.file.read()
-    # convert the image to a numpy array
-    img = np.frombuffer(img, dtype=np.uint8)
-    # convert the numpy array to a cv2 image
-    img = cv2.imdecode(img, cv2.IMREAD_COLOR)
-    # convert the image to grayscale
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    # apply thresholding to the image
-    img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-    # apply dilation and erosion to remove noise
-    kernel = np.ones((1, 1), np.uint8)
-    img = cv2.dilate(img, kernel, iterations=1)
-    img = cv2.erode(img, kernel, iterations=1)
-    # apply contour detection to extract the text
-    img, contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    # sort the contours by area
-    contours = sorted(contours, key=cv2.contourArea, reverse=True)
-    # create a mask for the contour
-    mask = np.zeros(img.shape, np.uint8)
-    # create a bounding rectangle for the contour
-    x, y, w, h = cv2.boundingRect(contours[0])
-    # create a new image with the bounding rectangle
-    new_img = img[y:y + h, x:x + w]
-    # create a new image with the bounding rectangle
-    new_img = cv2.bitwise_not(new_img)
-    # create a new image with the bounding rectangle
-    new_img = cv2.bitwise_not(new_img)
+    contents = io.BytesIO(await file.read())
+    file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
+    img = cv2.imdecode(file_bytes, 1)
+	# Converting image to array
+    image_arr = np.array(img.convert('RGB'))
+	# Converting image to grayscale
+    gray_img_arr = cv2.cvtColor(image_arr, cv2.COLOR_BGR2GRAY)
+	#Converting image back to rbg
+    image = Image.fromarray(gray_img_arr)
 
-	# Execute if request is get
-	if request.method == "GET":
-		full_filename =  'images/white_bg.jpg'
-		return render_template("index.html", full_filename = full_filename)
+	# Printing lowercase
+	#letters = string.ascii_lowercase
+	# Generating unique image name for dynamic image display
+	#name = ''.join(random.choice(letters) for i in range(10)) + '.png'
+	#full_filename =  'uploads/' + name
 
-	# Execute if reuqest is post
-	if request.method == "POST":
-		image_upload = request.files['image_upload']
-		
+	# Extracting text from image
+    custom_config = r'-l eng --oem 3 --psm 6'
+    text = pytesseract.image_to_string(image,config=custom_config)
+
+	# Remove symbol if any
+    characters_to_remove = "!()@—*“>+-/,'|£#%$&^_~"
+    new_string = text
+    for character in characters_to_remove:
+	    new_string = new_string.replace(character, "")
+
+	# Converting string into list to dislay extracted text in seperate line
+    new_string = new_string.split("\n")
+
+	# Saving image to display in html
+    img = Image.fromarray(image_arr, 'RGB')
+    return new_string
