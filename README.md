@@ -4,7 +4,7 @@
 
 
 [![Language](https://img.shields.io/badge/Python-darkblue.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
-FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)](https://wordsai-api.herokuapp.com/docs)
+![Fastapi](FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)
 [![Framework](https://img.shields.io/badge/
 ![hosted](https://img.shields.io/badge/Heroku-430098?style=flat&logo=heroku&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-blue?style=flat&logo=docker&logoColor=white)
@@ -53,7 +53,7 @@ FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)](https://wordsai-
 
 
 ## About
->WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. Visit the official website for more details wordsai-api.herokuapp.com/redoc
+>WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. Visit the official website for more details [wordsai-api.herokuapp.com/redoc]()
 ### Features
 - Speech Recognition
 - Auto Correct
