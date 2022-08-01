@@ -63,4 +63,4 @@ async def get_sentiment(text: str) -> str:
         sentiment = "Neutral"
     return f"The sentiment of the text is: {sentiment} and the Score is: {round(result['compound'], 2)}"
 
-
+# Text Summarizer Route
