@@ -53,7 +53,7 @@ FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)](https://wordsai-
 
 
 ## About
->WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework.
+>WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. Visit the official website for more details wordsai-api.herokuapp.com/redoc
 ### Features
 - Speech Recognition
 - Auto Correct

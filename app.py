@@ -285,6 +285,18 @@ async def get_ocr(file: UploadFile = File(...)):
 
 @app.post("/resume_parser")
 async def resume_parser(file: UploadFile) -> str:
+    """
+    The resume_parser function takes a file path to a resume as an argument and returns the parsed data as a dictionary.
+    The returned dictionary contains the following fields:
+    name, email, phone_number, work_experience (a list of dictionaries), skills (a list).
+    
+    
+    Args:
+        file:UploadFile: Pass the file that is uploaded to the function
+    
+    Returns:
+        A string of the file name
+    """
     # write a function to save the uploaded file and return the file name
     files = await file.read()
     # save the file
@@ -301,6 +313,16 @@ async def resume_parser(file: UploadFile) -> str:
 
 @app.post("/speech_to_text")
 async def speech_to_text(file: UploadFile = File(...)) -> str:
+    """
+    The speech_to_text function accepts an audio file and returns the text transcription of that file.
+    
+    
+    Args:
+        file:UploadFile=File(...): Pass the file that is uploaded to the function
+    
+    Returns:
+        A string of the text transcribed from the audio file
+    """
     # write a function to save the uploaded file and return the file name
     files = await file.read()
     # save the file
