@@ -1,1 +1,2 @@
-template
+fastapi[all]
+vaderSentiment==3.3.2
