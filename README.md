@@ -53,7 +53,7 @@
 
 
 ## About
->WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. Visit the official website for more details [wordsai-api.herokuapp.com/redoc]()
+>WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. Visit the official website for more details [wordsai-api.herokuapp.com/redoc](wordsai-api.herokuapp.com/redoc)
 ### Features
 - Speech Recognition
 - Auto Correct
