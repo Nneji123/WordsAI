@@ -6,5 +6,5 @@ pip install pyresparser
 python -m spacy download en_core_web_sm
 python -m nltk.downloader words 
 python -m nltk.downloader stopwords
-uvicorn app:app --reload --port 9000
-#gunicorn -w 3 -k uvicorn.workers.UvicornWorker app:app --bind 0.0.0.0:$PORT
+#uvicorn app:app --reload --port 9000
+gunicorn -w 3 -k uvicorn.workers.UvicornWorker app:app --bind 0.0.0.0:$PORT
