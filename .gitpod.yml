@@ -1,11 +1,10 @@
 # Commands to start on workspace startup
 tasks:
   - init: |
-      pip install gdown
-      python download.py
+      pip install -r requirements.txt
   - command: |
       docker-compose up -d --build
 # Ports to expose on workspace startup
 ports:
-  - port: 8000
+  - port: 8080
     onOpen: open-browser

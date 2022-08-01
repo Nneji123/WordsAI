@@ -4,9 +4,8 @@
 
 
 [![Language](https://img.shields.io/badge/Python-darkblue.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
-[![Framework](https://img.shields.io/badge/Keras-darkred.svg?style=flat&logo=keras&logoColor=white)](http://www.Keras.org/news.html)
-[![Framework](https://img.shields.io/badge/FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)](https://wordsai-api.herokuapp.com/docs)
-[![Framework](https://img.shields.io/badge/Tensorflow-orange.svg?style=flat&logo=tensorflow&logoColor=white)](https://share.streamlit.io/nneji123/lung-cancer-prediction/main)
+FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)](https://wordsai-api.herokuapp.com/docs)
+[![Framework](https://img.shields.io/badge/
 ![hosted](https://img.shields.io/badge/Heroku-430098?style=flat&logo=heroku&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-blue?style=flat&logo=docker&logoColor=white)
 ![build](https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat)
@@ -26,10 +25,6 @@
 - [Deployment](#deployment)
   * [Deploying the Application to Heroku](#deploying-the-application-to-heroku)
   * [How to deploy the application on AWS EC2 using a Bash Script](#how-to-deploy-the-application-on-aws-ec2-using-a-bash-script)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-
 
 
 ## Repository File Structure
@@ -58,11 +53,19 @@
 
 
 ## About
-
+>WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework.
 ### Features
+- Speech Recognition
+- Auto Correct
+- Machine Translation across multiple languages
+- Resume Parser
+- Text Summarizer
+- Webpage Summarizer
+- Sentiment Analyzer
+- Optical Character Recognition or OCR(extract text from images)
+- And many more features to come!
 
-
-
+## Demo
 
 ## How to run the Application
 ### Running on Local Machine
@@ -82,11 +85,7 @@ cd WordsAI
 pip install -r requirements.txt
 ```
 
-4. Download the model from google drive
-```
-python download.py
-```
-5. Run the application
+4. Run the application
 ```
 uvicorn app:app --reload --port 8000
 ```
@@ -105,13 +104,8 @@ git clone https://github.com/Nneji123/WordsAI.git
 cd WordsAI
 ```
 
-3. Download the model:
-```bash
-pip install gdown
-python download.py
-```
 
-4. Run the docker compose command
+3. Run the docker compose command
 ```docker
 docker compose up -d --build 
 ```
@@ -190,8 +184,8 @@ cd WordsAI
 ```
 **6. Then run the setup.sh file to get your application up and running:**
 ```bash
-chmod u+x setup.sh
-./setup.sh
+chmod u+x aws.sh
+./aws.sh
 ```
 **You can then view the application by going to your Public IP's location, an example in my case will be:
 http://3.95.202.74:80/docs**
