@@ -5,12 +5,16 @@ import string
 
 import cv2
 import numpy as np
+import pocketsphinx
 import pytesseract
+import speech_recognition as sr
+import sphinxbase
 from autocorrect import Speller
 from fastapi import FastAPI, File, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import (FileResponse, PlainTextResponse,
                                StreamingResponse)
+from pdfrw import PdfReader
 from PIL import Image
 from pyresparser import ResumeParser
 from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
@@ -21,7 +25,7 @@ from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
 from pysummarization.web_scraping import WebScraping
 from translate import Translator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from pdfrw import PdfReader
+from pydub import AudioSegment
 
 app = FastAPI(
     title="WordsAI API",
@@ -263,21 +267,61 @@ async def get_ocr(file: UploadFile = File(...)):
     return new_string
 
 
-# create a route for resume parsing
-@app.post("/resume_parser")
-async def get_resume_parser(file: UploadFile = File(...)):
+# # create a route for resume parsing
+# @app.post("/resume_parser")
+# async def get_resume_parser(file: UploadFile = File(...)):
+#     """
+#     The get_resume_parser function accepts a resume as an argument and returns the parsed resume.
+#     The function uses the Resume Parser library to parse the resume.
+#     Args:
+#         resume: UploadFile: Pass in the resume that is to be parsed
+    
+#     Returns:
+#         A string that is the parsed resume
+#     """
+#     contents = file.read()
+#     #file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
+#     #x = PdfReader(file_bytes)
+#     data = ResumeParser(contents).get_extracted_data()
+#     return data
+
+# @app.post("/uploadfile/")
+# async def create_upload_file(file: UploadFile):
+#     data = ResumeParser(file.read()).get_extracted_data()
+#     return data
+
+# create a route for speech to te
+
+@app.post("/speech_to_text")
+async def speech_to_text(file: UploadFile = File(...)):
     """
-    The get_resume_parser function accepts a resume as an argument and returns the parsed resume.
-    The function uses the Resume Parser library to parse the resume.
+    The get_speech_to_text function accepts a speech as an argument and returns the text extracted from the speech.
+    The function uses the Speech to Text library to extract text from the speech.
     Args:
-        resume: UploadFile: Pass in the resume that is to be parsed
+        speech: UploadFile: Pass in the speech that is to be extracted
     
     Returns:
-        A string that is the parsed resume
+        A string that is the text extracted from the speech
     """
-    contents = file.read()
-    #file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
-    #x = PdfReader(file_bytes)
-    data = ResumeParser(contents).get_extracted_data()
-    return data
+    contents = io.BytesIO(await file.read())
+    file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
+    audio = AudioSegment.from_file(file_bytes, format="wav")
+    r = sr.Recognizer()
+    harvard = sr.AudioFile(audio)
+    with harvard as source:
+        audio = r.record(source)
+    text = r.recognize_sphinx(audio)
+    return text
 
+@app.post("/upload-file/")
+async def create_upload_file(file: UploadFile = File(...)):
+    file_location = f"files/{file.filename}"
+    with open(file_location, "wb+") as content:
+        x = content.write(file.file.read())
+    r = sr.Recognizer()
+    harvard = sr.AudioFile(x)
+    with harvard as source:
+        audio = r.record(source)
+    text = r.recognize_sphinx(audio)
+    return text
+    

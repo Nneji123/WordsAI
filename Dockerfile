@@ -6,9 +6,11 @@ RUN apt-get -y update  && apt-get install -y \
   python3-dev \
   apt-utils \
   python-dev \
-  swig \
   tesseract-ocr \
+  portaudio19-dev \
+  swig \
   libpulse-dev \
+  pocketsphinx \
   build-essential \
 && rm -rf /var/lib/apt/lists/*
 

@@ -12,4 +12,5 @@ numpy==1.19.3
 pillow
 gunicorn
 pyresparser
+pyaudio
 pdfrw
