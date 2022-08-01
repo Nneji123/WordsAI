@@ -6,9 +6,10 @@ pyquery==1.4.3
 translate
 autocorrect
 SpeechRecognition
-pocketsphinx
 opencv-python-headless==4.2.0.32
 pytesseract==0.3.7
 numpy==1.19.3
 pillow
 gunicorn
+pyresparser
+pdfrw

@@ -1,23 +1,27 @@
-from fastapi import FastAPI, File, UploadFile, Response
-from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
-from fastapi.middleware.cors import CORSMiddleware
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from pysummarization.web_scraping import WebScraping
-from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
-from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
-from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
-from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
-from translate import Translator
-from autocorrect import Speller
+import io
 import os
-import cv2
-import numpy as np
-from PIL import Image
 import random
 import string
-import pytesseract
-import io
 
+import cv2
+import numpy as np
+import pytesseract
+from autocorrect import Speller
+from fastapi import FastAPI, File, Response, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import (FileResponse, PlainTextResponse,
+                               StreamingResponse)
+from PIL import Image
+from pyresparser import ResumeParser
+from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
+from pysummarization.abstractabledoc.top_n_rank_abstractor import \
+    TopNRankAbstractor
+from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
+from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
+from pysummarization.web_scraping import WebScraping
+from translate import Translator
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from pdfrw import PdfReader
 
 app = FastAPI(
     title="WordsAI API",
@@ -257,3 +261,23 @@ async def get_ocr(file: UploadFile = File(...)):
 	# Converting string into list to dislay extracted text in seperate line
     new_string = new_string.split("\n")
     return new_string
+
+
+# create a route for resume parsing
+@app.post("/resume_parser")
+async def get_resume_parser(file: UploadFile = File(...)):
+    """
+    The get_resume_parser function accepts a resume as an argument and returns the parsed resume.
+    The function uses the Resume Parser library to parse the resume.
+    Args:
+        resume: UploadFile: Pass in the resume that is to be parsed
+    
+    Returns:
+        A string that is the parsed resume
+    """
+    contents = file.read()
+    #file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
+    #x = PdfReader(file_bytes)
+    data = ResumeParser(contents).get_extracted_data()
+    return data
+
