@@ -5,13 +5,13 @@
 
 [![Language](https://img.shields.io/badge/Python-darkblue.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![Framework](https://img.shields.io/badge/Keras-darkred.svg?style=flat&logo=keras&logoColor=white)](http://www.Keras.org/news.html)
-[![Framework](https://img.shields.io/badge/FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)](https://lung-cancer-api.herokuapp.com/docs)
+[![Framework](https://img.shields.io/badge/FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)](https://wordsai-api.herokuapp.com/docs)
 [![Framework](https://img.shields.io/badge/Tensorflow-orange.svg?style=flat&logo=tensorflow&logoColor=white)](https://share.streamlit.io/nneji123/lung-cancer-prediction/main)
 ![hosted](https://img.shields.io/badge/Heroku-430098?style=flat&logo=heroku&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-blue?style=flat&logo=docker&logoColor=white)
 ![build](https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat)
 ![Gitpod](https://img.shields.io/badge/Gitpod-orange?style=flat&logo=gitpod&logoColor=white)
-![reposize](https://img.shields.io/github/repo-size/Nneji123/Plant-Disease-Detection-Keras)
+![reposize](https://img.shields.io/github/repo-size/Nneji123/WordsAI)
 
 
 ## Table of Contents
@@ -34,24 +34,24 @@
 
 ## Repository File Structure
 ```bash
-├── app.py # main fastapi app
-├── aws.txt # requirements for deploying on aws
-├── docker-compose.yml # for running docker compose
+├── app.py
+├── docker-compose.yml
 ├── Dockerfile
-├── download.py # script to download model hosted on google drive
-├── fastapi_setup # for deploying on aws
+├── images
+│   └── favicon.ico
+├── __init__.py
 ├── LICENSE
-├── Notebook #Notebook folder
-   └── plant_disease_detection.ipynb
 ├── README.md
 ├── requirements.txt
-├── Research_Papers
-│   └── R_paper1.pdf
-├── setup.sh # bash script for deploying on aws ec2
-└── test_images # test images for inference
-    ├── 8fd27998ae52a4a6.jpg
-    ├── 9be41b823d13e3c6.jpg
-    └── 9d0f6e60819f9a5a.jpg
+├── setup.sh
+├── temp
+│   ├── beware_i.wav
+│   ├── file.pdf
+│   └── file.wav
+└── tests
+    ├── app.py
+    ├── __init__.py
+    └── tests.py
 ```
 
 
@@ -69,12 +69,12 @@
 **To run the application on your local system do the following:**
 1. Clone the repository:
 ```bash
-git clone https://github.com/Nneji123/Plant-Disease-Detection-Keras.git
+git clone https://github.com/Nneji123/WordsAI.git
 ```
 
 2. Change the directory:
 ```
-cd Plant-Disease-Detection-Keras
+cd WordsAI
 ```
 
 3. Install the requirements:
@@ -97,12 +97,12 @@ uvicorn app:app --reload --port 8000
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Nneji123/Plant-Disease-Detection-Keras.git
+git clone https://github.com/Nneji123/WordsAI.git
 ```
 
 2. Change the directory:
 ```
-cd Plant-Disease-Detection-Keras
+cd WordsAI
 ```
 
 3. Download the model:
@@ -121,7 +121,7 @@ You should be able to view the application by going to http://localhost:8000/
 
 **Click the button below to start a new development environment:**
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Nneji123/Plant-Disease-Detection-Keras)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Nneji123/WordsAI)
 
 ## Deployment
 ### Deploying the Application to Heroku
@@ -129,12 +129,12 @@ You should be able to view the application by going to http://localhost:8000/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Nneji123/Plant-Disease-Detection-Keras.git
+git clone https://github.com/Nneji123/WordsAI.git
 ```
 
 2. Change the directory:
 ```
-cd Plant-Disease-Detection-Keras
+cd WordsAI
 ```
 
 3. Login to Heroku
@@ -182,11 +182,11 @@ heroku container:release web
 
 **4. Connect to your instance and clone your forked repository, an example in my case:**
 ```bash
-git clone https://github.com/Nneji123/Plant-Disease-Detection-Keras.git
+git clone https://github.com/Nneji123/WordsAI.git
 ```
-**5. cd into your repository which is probably named 'Plant-Disease-Detection-Keras'. You can do that by running:**
+**5. cd into your repository which is probably named 'WordsAI'. You can do that by running:**
 ```bash
-cd Plant-Disease-Detection-Keras 
+cd WordsAI 
 ```
 **6. Then run the setup.sh file to get your application up and running:**
 ```bash

@@ -54,9 +54,9 @@ async def favicon():
 async def home():
     """
     The home function returns a welcome message and some instructions.
-    
+
     Args:
-    
+
     Returns:
         A note that is displayed when the user accesses the root of our api
     """
@@ -227,8 +227,7 @@ async def get_autocorrect(language: str, text: str) -> str:
     return "The autocorrected text is: " + result
 
 
-
-#create a route for optical character recognition
+# create a route for optical character recognition
 @app.post("/ocr")
 async def get_ocr(file: UploadFile = File(...)):
     """
@@ -236,31 +235,31 @@ async def get_ocr(file: UploadFile = File(...)):
     The function uses the OCR library to extract text from the image.
     Args:
         image: UploadFile: Pass in the image that is to be extracted
-    
+
     Returns:
         A string that is the text extracted from the image
     """
     contents = io.BytesIO(await file.read())
     file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
     img = cv2.imdecode(file_bytes, 1)
-	# Converting image to array
+    # Converting image to array
     image_arr = np.array(img)
-	# Converting image to grayscale
+    # Converting image to grayscale
     gray_img_arr = cv2.cvtColor(image_arr, cv2.COLOR_BGR2GRAY)
-	#Converting image back to rbg
+    # Converting image back to rbg
     image = Image.fromarray(gray_img_arr)
 
-	# Extracting text from image
-    custom_config = r'-l eng --oem 3 --psm 6'
-    text = pytesseract.image_to_string(image,config=custom_config)
+    # Extracting text from image
+    custom_config = r"-l eng --oem 3 --psm 6"
+    text = pytesseract.image_to_string(image, config=custom_config)
 
-	# Remove symbol if any
+    # Remove symbol if any
     characters_to_remove = "!()@—*“>+-/,'|£#%$&^_~"
     new_string = text
     for character in characters_to_remove:
-	    new_string = new_string.replace(character, "")
+        new_string = new_string.replace(character, "")
 
-	# Converting string into list to dislay extracted text in seperate line
+    # Converting string into list to dislay extracted text in seperate line
     new_string = new_string.split("\n")
     return new_string
 
@@ -273,7 +272,7 @@ async def get_ocr(file: UploadFile = File(...)):
 #     The function uses the Resume Parser library to parse the resume.
 #     Args:
 #         resume: UploadFile: Pass in the resume that is to be parsed
-    
+
 #     Returns:
 #         A string that is the parsed resume
 #     """
@@ -283,8 +282,9 @@ async def get_ocr(file: UploadFile = File(...)):
 #     data = ResumeParser(contents).get_extracted_data()
 #     return data
 
+
 @app.post("/resume_parser")
-async def resume_parser(file: UploadFile)-> str:
+async def resume_parser(file: UploadFile) -> str:
     # write a function to save the uploaded file and return the file name
     files = await file.read()
     # save the file
@@ -297,7 +297,6 @@ async def resume_parser(file: UploadFile)-> str:
         pdf = f.read()
     data = ResumeParser(filename).get_extracted_data()
     return data
-
 
 
 @app.post("/speech_to_text")
@@ -318,4 +317,3 @@ async def speech_to_text(file: UploadFile = File(...)) -> str:
         audio = r.record(source)
     text = r.recognize_sphinx(audio)
     return text
-
