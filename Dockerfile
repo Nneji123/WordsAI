@@ -6,6 +6,8 @@ RUN apt-get -y update  && apt-get install -y \
   python3-dev \
   apt-utils \
   python-dev \
+  swig \
+  libpulse-dev \
   build-essential \
 && rm -rf /var/lib/apt/lists/*
 

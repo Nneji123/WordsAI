@@ -5,3 +5,5 @@ vaderSentiment==3.3.2
 pyquery==1.4.3
 translate
 autocorrect
+SpeechRecognition
+pocketsphinx
