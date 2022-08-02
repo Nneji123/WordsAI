@@ -6,7 +6,7 @@ import streamlit as st
 
 st.title("AutoCorrect App using WordsAI")
 
-st.image("./images/logo.png")
+#st.image("./images/logo.png")
 
 st.write("""
 ## About
