@@ -44,24 +44,68 @@ And many more features to come!
 
 ## Repository File Structure
 ```bash
+.
 ├── app.py
+├── aws.sh
+├── db.sqlite3
 ├── docker-compose.yml
 ├── Dockerfile
+├── docker.sh
+├── fastapi_setup
 ├── images
-│   └── favicon.ico
+│   ├── favicon.ico
+│   └── wordcloud.png
 ├── __init__.py
 ├── LICENSE
+├── __pycache__
+│   └── app.cpython-38.pyc
 ├── README.md
 ├── requirements.txt
 ├── setup.sh
+├── streamlit
+│   ├── functions
+│   │   ├── functions.py
+│   │   └── __pycache__
+│   │       └── functions.cpython-38.pyc
+│   ├── Home.py
+│   ├── images
+│   │   ├── background.jpg
+│   │   └── logo.png
+│   ├── pages
+│   │   ├── AutoCorrect.py
+│   │   ├── Named_Entity_Recognition.py
+│   │   ├── Optical_Character_Recognition.py
+│   │   ├── Resume_Parser.py
+│   │   ├── Sentiment_Analyzer.py
+│   │   ├── Speech_to_Text.py
+│   │   ├── Text_Summarizer.py
+│   │   ├── Translation.py
+│   │   ├── Webpage_Summarizer.py
+│   │   └── Wordcloud.py
+│   ├── requirements.txt
+│   ├── runtime.txt
+│   └── temp
+│       ├── temp2.png
+│       ├── temp.pdf
+│       └── temp.wav
 ├── temp
-│   ├── beware_i.wav
+│   ├── convo.yml
 │   ├── file.pdf
 │   └── file.wav
-└── tests
-    ├── app.py
-    ├── __init__.py
-    └── tests.py
+├── templates
+│   ├── assets
+│   │   └── favicon.ico
+│   └── index.html
+├── tests
+│   ├── app.py
+│   ├── __init__.py
+│   └── tests.py
+├── train_bot
+│   ├── chatbot.py
+│   ├── convo.yml
+│   ├── __init__.py
+│   └── train.py
+└── views.py
 ```
 
 ## Demo
