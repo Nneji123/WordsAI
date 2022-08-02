@@ -23,7 +23,7 @@
     />
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap" rel="stylesheet"> 
-    <title>Sentiment</title>
+    <title>Summarizer</title>
     <style>
       body {
         background-color: #e2e2e2;
@@ -44,12 +44,12 @@
         <div class="flex flex-col items-center text-center justify-center"
               >
                 <h1 class="mb-4 font-bold title-font mt-2 text-gray-600 text-4xl">
-                  Sentiment Analyzer App with WordsAI
+                  Text Summarizer App with WordsAI
                 </h1>
         </div>
         <div class="lg:w-3/6 mx-auto">
           <div class="rounded-lg h-64 overflow-hidden">
-            <form action="/sentiment_analysis" method="post">
+            <form action="/summary_normal" method="post">
               <div class="relative mb-1">
                 
                 <textarea
@@ -63,7 +63,7 @@
                 <input
                   class="mt-2 text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-400 rounded text-lg"
                   type="submit"
-                  value="Get Sentiment"
+                  value="Get Summary"
                 />
               </div>
             </form>

@@ -3,4 +3,5 @@ translate==3.6.1
 uvicorn
 python-multipart
 h11
-
+pysummarizer
+pyquery
