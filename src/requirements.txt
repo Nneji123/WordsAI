@@ -7,3 +7,4 @@ pysummarizer
 pyquery
 wordcloud
 gensim==3.8.1
+gunicorn
