@@ -1,7 +1,9 @@
-import streamlit as st
 import json
-import requests as re
 import os
+
+import requests as re
+
+import streamlit as st
 
 st.title("Resume Parser App using WordsAI")
 

@@ -1,7 +1,9 @@
+import base64
 import io
 import os
 import random
 import string
+from io import BytesIO
 
 import cv2
 import nltk
@@ -395,3 +397,32 @@ async def get_response(text: str) -> dict:
     answer = bot.get_response(text)
     return {"WordsAI": str(answer)}
 
+@app.post("/wordcloud_streamlit")
+async def wordcloud(text):
+    """
+    The wordcloud function takes in a string of text and generates a wordcloud image.
+    The function also saves the image to the images folder.
+
+    Args:
+        text: Pass in the text that will be used to create the wordcloud
+
+    Returns:
+        A wordcloud image
+    """
+    stopwords = set(STOPWORDS)
+    wordcloud = (
+        WordCloud(
+            width=400,
+            height=400,
+            background_color="white",
+            stopwords=stopwords,
+            min_font_size=10,
+        )
+        .generate(text)
+        .to_image()
+    )
+    img = BytesIO()
+    wordcloud.save(img, "PNG")
+    img.seek(0)
+    img_b64 = base64.b64encode(img.getvalue()).decode()
+    return img_b64

@@ -5,13 +5,14 @@ Script with defined app, including styling.
 @author: Ifeanyi Nneji
 """
 
-import streamlit as st
 from PIL import Image
+
+import streamlit as st
 
 # app setup
 try:
 
-    from streamlit_functions.helper_functions import *
+    from functions.functions import *
 
     # app design
     app_meta('🖼️')
@@ -21,45 +22,225 @@ try:
     st.set_option('deprecation.showPyplotGlobalUse', False)
 
     # Main panel setup
-    display_app_header(main_txt='Media Recommendation App',
-                       sub_txt='Get suggestions on what to read, watch or listen to next using this recommendations web app!')
-
-    st.markdown("""---""")
-
-    st.write('Welcome to the MRA! An app for getting media recommendations!')
-
-    st.write('Please select the recommendation app you would like to use from the sidebar!',
-             'Due to the multifunctionality of this app, we have split it into 7 different apps.',
-             'This is the main app. Have fun!')
-
-    # provide options to user to navigate to other dqw apps
-    app_section_button('[Movie Recommendations 🖼️](https://share.streamlit.io/soft-nougat/dqw-ivves_images/main/app.py)',
-                       '[Music Recommendations 🎶](https://share.streamlit.io/soft-nougat/dqw-ivves_structured/main/app.py)',
-                       '[Game Recommendations 🎮](https://share.streamlit.io/soft-nougat/dqw-ivves_audio/main/app.py)',
-                       '[Anime Recommendations 📚](https://share.streamlit.io/soft-nougat/dqw-ivves_text/main/app.py)',
-                       '[Comics Recommendations 📚](https://share.streamlit.io/soft-nougat/dqw-ivves_audio/main/app.py)',
-                       '[Manga Recommendations 📚](https://share.streamlit.io/soft-nougat/dqw-ivves_audio/main/app.py)',
-                       '[Book Recommendations 📚](https://share.streamlit.io/soft-nougat/dqw-ivves_audio/main/app.py)')
-    st.markdown("""---""")
-
-    intro_text = """
-    """
-    intro = st.expander(
-        "Click here for more info on Media Recommendation Engine ✨")
-
-    with intro:
-        sub_text(intro_text)
+    display_app_header(main_txt='WordsAI',
+                       sub_txt='A collection of Natural Language Processing apps')
 
 
+    st.markdown("""
+    <p align="center">
+    <img width="300" height="300" src="https://user-images.githubusercontent.com/101701760/182023528-7da7205e-1fc6-49c9-832d-b3f40a68eae8.png">
+    </p>
 
 
-except KeyError:
-    st.error("Please select a key value from the dropdown to continue.")
+    [![Language](https://img.shields.io/badge/Python-darkblue.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
+    [![Framework](https://img.shields.io/badge/FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)](https://wordsai-api.herokuapp.com/docs)
+    [![Framework](https://img.shields.io/badge/Streamlit-darkred.svg?style=flat&logo=streamlit&logoColor=white)](https://share.streamlit.io/nneji123/lung-cancer-prediction/main)
+    ![hosted](https://img.shields.io/badge/Heroku-430098?style=flat&logo=heroku&logoColor=white)
+    ![Docker](https://img.shields.io/badge/Docker-blue?style=flat&logo=docker&logoColor=white)
+    ![build](https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat)
+    [![Gitpod](https://img.shields.io/badge/Gitpod-orange?style=flat&logo=gitpod&logoColor=white)](https://gitpod.io/#https://github.com/Nneji123/WordsAI)
+    ![reposize](https://img.shields.io/github/repo-size/Nneji123/WordsAI)
 
-# except ValueError:
-#     st.error(
-#         "Oops, something went wrong. Please check previous steps for inconsistent input.")
+    ## About
+    >WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. Visit the official website for more details [wordsai-api.herokuapp.com/redoc](wordsai-api.herokuapp.com/redoc)
 
-except TypeError:
-    st.error(
-        "Thanks for using this App.")
+
+    ## Table of Contents
+    * [About](#about)
+        + [Features](#features)
+    * [Repository File Structure](#repository-file-structure)
+    * [Demo](#demo)
+    * [How to run the Application](#how-to-run-the-application)
+    * [Deployment](#deployment)
+    - [Todo](#todo)
+    - [License](#license)
+
+    ### Features
+    - Speech Recognition
+    - Auto Correct
+    - Machine Translation across multiple languages
+    - Resume Parser
+    - Text Summarizer
+    - Webpage Summarizer
+    - Sentiment Analyzer
+    - Optical Character Recognition or OCR(extract text from images)
+    - Named Entity Recognizer
+    - Chatbot
+    - Wordcloud Generator
+
+    And many more features to come!
+
+    ## Repository File Structure
+    ```bash
+    ├── app.py
+    ├── docker-compose.yml
+    ├── Dockerfile
+    ├── images
+    │   └── favicon.ico
+    ├── __init__.py
+    ├── LICENSE
+    ├── README.md
+    ├── requirements.txt
+    ├── setup.sh
+    ├── temp
+    │   ├── beware_i.wav
+    │   ├── file.pdf
+    │   └── file.wav
+    └── tests
+        ├── app.py
+        ├── __init__.py
+        └── tests.py
+    ```
+
+    ## Demo
+
+    ## How to run the Application
+    <details> 
+    <summary><b>Running on Local Machine</b></summary>
+
+    **To run the application on your local system do the following:**
+    1. Clone the repository:
+    ```bash
+    git clone https://github.com/Nneji123/WordsAI.git
+    ```
+
+    2. Change the directory:
+    ```
+    cd WordsAI
+    ```
+
+    3. Install the requirements:
+    ```
+    pip install -r requirements.txt
+    ```
+
+    4. Run the application
+    ```
+    uvicorn app:app --reload --port 8000
+    ```
+    **You should be able to view the application by going to http://127.0.0.1:8000/**
+    </details>
+
+    <details> 
+    <summary><b>Running on Local Machine with Docker Compose</b></summary>
+
+    **You can also run the application in a docker container using docker compose(if you have it installed)**
+
+    1. Clone the repository:
+    ```bash
+    git clone https://github.com/Nneji123/WordsAI.git
+    ```
+
+    2. Change the directory:
+    ```
+    cd WordsAI
+    ```
+
+    3. Run the docker compose command
+    ```docker
+    docker compose up -d --build 
+    ```
+    You should be able to view the application by going to http://localhost:8000/
+    </details>
+
+
+    <details> 
+    <summary><b>Running in a Gitpod Cloud Environment</b></summary>
+
+
+    **Click the button below to start a new development environment:**
+
+    [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Nneji123/WordsAI)
+    </details>
+
+    ## Deployment
+
+    <details> 
+    <summary><b>Deploying the Application to Heroku</b></summary>
+
+    **Assuming you have git and heroku cli installed just carry out the following steps:**
+
+    1. Clone the repository:
+    ```bash
+    git clone https://github.com/Nneji123/WordsAI.git
+    ```
+
+    2. Change the directory:
+    ```
+    cd WordsAI
+    ```
+
+    3. Login to Heroku
+
+    ``` 
+    heroku login
+    heroku container:login
+    ```
+
+    4. Create your application
+    ```
+    heroku create your-app-name
+    ```
+    Replace **your-app-name** with the name of your choosing.
+
+    5. Build the image and push to Container Registry:
+
+    ```
+    heroku container:push web
+    ```
+
+    6. Then release the image to your app:
+    
+    ```
+    heroku container:release web
+    ```
+    </details>
+
+    <details> 
+    <summary><b>How to deploy the application on AWS EC2 using a Bash Script</b></summary>
+
+    **1. Fork this repository**
+
+    **2. Login to AWS, create a new AWS EC2 instance and make sure to allow outside traffic as shown in the screenshots below:**
+
+    <img src="https://user-images.githubusercontent.com/101701760/178163392-3c9fc8ec-e58a-420d-a6bb-2885215d8105.png" width="1200" height="400">
+
+
+    <img src="https://user-images.githubusercontent.com/101701760/178163373-e4bb2c92-0f47-4a22-9556-dfc470fd7e8a.png" width="1200" height="400">
+
+
+    **3. When the instance has been launched, copy the Public IP address of your instance and paste it in the 'fastapi_setup' file of your cloned repository as shown below**
+
+    <img src="https://user-images.githubusercontent.com/101701760/178163457-2e156379-b542-4d24-aebf-e202dd44ae2c.png" width="1200" height="400">
+
+    <img src="https://user-images.githubusercontent.com/101701760/178163536-918818ee-563d-4b0d-a5ec-5c265a75b2b4.png" width="1200" height="400">
+
+
+    **4. Connect to your instance and clone your forked repository, an example in my case:**
+    ```bash
+    git clone https://github.com/Nneji123/WordsAI.git
+    ```
+    **5. cd into your repository which is probably named 'WordsAI'. You can do that by running:**
+    ```bash
+    cd WordsAI 
+    ```
+    **6. Then run the setup.sh file to get your application up and running:**
+    ```bash
+    chmod u+x aws.sh
+    ./aws.sh
+    ```
+    **You can then view the application by going to your Public IP's location, an example in my case will be:
+    http://3.95.202.74:80/docs**
+
+    **You can also watch this video for a more in depth explanation on how to deploy a FastAPI application on AWS EC2:**
+    [![How to deploy FastAPI on AWS](https://youtube-md.vercel.app/SgSnz7kW-Ko/640/360)](https://www.youtube.com/watch?v=SgSnz7kW-Ko)
+    </details>
+
+    # Todo
+    - [ ] Add a frontend interface for the APIs with streamlit
+    - [ ] Add more interesting features like; title generator and song finder etc
+
+    # License
+    [Apache License](https://github.com/Nneji123/WordsAI/LICENSE.md)
+
+    """)

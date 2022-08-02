@@ -1,8 +1,9 @@
-import streamlit as st
 import base64
-import streamlit.components.v1 as components
 
 from PIL import Image
+
+import streamlit as st
+import streamlit.components.v1 as components
 
 
 def app_section_button(option1, option2, option3, option4):
