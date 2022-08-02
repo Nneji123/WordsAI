@@ -4,27 +4,26 @@
 
 
 [![Language](https://img.shields.io/badge/Python-darkblue.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
-![Fastapi](FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)
-[![Framework](https://img.shields.io/badge/
+[![Framework](https://img.shields.io/badge/FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)](https://wordsai-api.herokuapp.com/docs)
+[![Framework](https://img.shields.io/badge/Streamlit-darkred.svg?style=flat&logo=streamlit&logoColor=white)](https://share.streamlit.io/nneji123/lung-cancer-prediction/main)
 ![hosted](https://img.shields.io/badge/Heroku-430098?style=flat&logo=heroku&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-blue?style=flat&logo=docker&logoColor=white)
 ![build](https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat)
-![Gitpod](https://img.shields.io/badge/Gitpod-orange?style=flat&logo=gitpod&logoColor=white)
+[![Gitpod](https://img.shields.io/badge/Gitpod-orange?style=flat&logo=gitpod&logoColor=white)](https://gitpod.io/#https://github.com/Nneji123/WordsAI)
 ![reposize](https://img.shields.io/github/repo-size/Nneji123/WordsAI)
 
 
 ## Table of Contents
-- [Table of Contents](#table-of-contents)
-- [Repository File Structure](#repository-file-structure)
-- [About](#about)
-  * [Features](#features)
-- [How to run the Application](#how-to-run-the-application)
-  * [Running on Local Machine](#running-on-local-machine)
-  * [Running on Local Machine with Docker Compose](#running-on-local-machine-with-docker-compose)
-  * [Running in a Gitpod Cloud Environment](#running-in-a-gitpod-cloud-environment)
-- [Deployment](#deployment)
-  * [Deploying the Application to Heroku](#deploying-the-application-to-heroku)
-  * [How to deploy the application on AWS EC2 using a Bash Script](#how-to-deploy-the-application-on-aws-ec2-using-a-bash-script)
+  * [Repository File Structure](#repository-file-structure)
+  * [About](#about)
+    + [Features](#features)
+  * [Demo](#demo)
+  * [How to run the Application](#how-to-run-the-application)
+  * [Deployment](#deployment)
+- [Todo](#todo)
+- [License](#license)
+
+
 
 
 ## Repository File Structure
@@ -63,12 +62,18 @@
 - Webpage Summarizer
 - Sentiment Analyzer
 - Optical Character Recognition or OCR(extract text from images)
-- And many more features to come!
+- Named Entity Recognizer
+- Chatbot
+- Wordcloud Generator
+
+And many more features to come!
 
 ## Demo
 
 ## How to run the Application
-### Running on Local Machine
+<details> 
+  <summary><b>Running on Local Machine</b></summary>
+
 **To run the application on your local system do the following:**
 1. Clone the repository:
 ```bash
@@ -90,8 +95,11 @@ pip install -r requirements.txt
 uvicorn app:app --reload --port 8000
 ```
 **You should be able to view the application by going to http://127.0.0.1:8000/**
+</details>
 
-### Running on Local Machine with Docker Compose
+<details> 
+  <summary><b>Running on Local Machine with Docker Compose</b></summary>
+
 **You can also run the application in a docker container using docker compose(if you have it installed)**
 
 1. Clone the repository:
@@ -104,21 +112,28 @@ git clone https://github.com/Nneji123/WordsAI.git
 cd WordsAI
 ```
 
-
 3. Run the docker compose command
 ```docker
 docker compose up -d --build 
 ```
 You should be able to view the application by going to http://localhost:8000/
+</details>
 
-### Running in a Gitpod Cloud Environment
+
+<details> 
+  <summary><b>Running in a Gitpod Cloud Environment</b></summary>
+
 
 **Click the button below to start a new development environment:**
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Nneji123/WordsAI)
+</details>
 
 ## Deployment
-### Deploying the Application to Heroku
+
+<details> 
+  <summary><b>Deploying the Application to Heroku</b></summary>
+
 **Assuming you have git and heroku cli installed just carry out the following steps:**
 
 1. Clone the repository:
@@ -155,8 +170,11 @@ heroku container:push web
 ```
 heroku container:release web
 ```
+</details>
 
-### How to deploy the application on AWS EC2 using a Bash Script
+<details> 
+  <summary><b>How to deploy the application on AWS EC2 using a Bash Script</b></summary>
+
 **1. Fork this repository**
 
 **2. Login to AWS, create a new AWS EC2 instance and make sure to allow outside traffic as shown in the screenshots below:**
@@ -192,6 +210,14 @@ http://3.95.202.74:80/docs**
 
 **You can also watch this video for a more in depth explanation on how to deploy a FastAPI application on AWS EC2:**
 [![How to deploy FastAPI on AWS](https://youtube-md.vercel.app/SgSnz7kW-Ko/640/360)](https://www.youtube.com/watch?v=SgSnz7kW-Ko)
+</details>
+
+# Todo
+- [ ] Add a frontend interface for the APIs with streamlit
+- [ ] Add more interesting features like; title generator and song finder etc
+
+# License
+[Apache License](https://github.com/Nneji123/WordsAI/LICENSE.md)
 
 
 
