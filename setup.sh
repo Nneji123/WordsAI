@@ -7,5 +7,4 @@ python -m spacy download en_core_web_sm
 python -m nltk.downloader words 
 python -m nltk.downloader stopwords
 python -m nltk.downloader punkt
-uvicorn app:app --reload --port 8080
-#gunicorn -w 3 -k uvicorn.workers.UvicornWorker app:app --bind 0.0.0.0:$PORT
+gunicorn -w 3 -k uvicorn.workers.UvicornWorker app:app --bind 0.0.0.0:$PORT

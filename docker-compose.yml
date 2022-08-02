@@ -2,8 +2,8 @@ services:
   app:
     build: .
     container_name: simple-python-server
-    command: ./setup.sh #uvicorn app:app --host 0.0.0.0 --port 9000 --reload
+    command: ./docker.sh
     ports:
-      - 8080:8000
+      - 8000:8000
     volumes:
       - .:/app

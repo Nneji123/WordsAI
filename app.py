@@ -17,7 +17,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import (FileResponse, PlainTextResponse,
                                StreamingResponse)
 from fastapi.templating import Jinja2Templates
-from gensim.summarization import summarize
 from nltk.tokenize import sent_tokenize
 from PIL import Image
 from pyresparser import ResumeParser
@@ -323,35 +322,6 @@ async def speech_to_text(file: UploadFile = File(...)) -> str:
         audio = r.record(source)
     text = r.recognize_sphinx(audio)
     return text
-
-
-
-
-
-
-# @app.get("/summarizers2")
-# def home(request: Request):
-    
-#     return templates.TemplateResponse("index.html", {"request": request})
-
-# @app.post("/summarizers")
-# async def home(request: Request):
-#     sumary=""
-#     if request.method == "POST": 
-#         form = await request.form()
-#         if form["message"] and form["word_count"]: 
-#             word_count = form["word_count"]
-#             text = form["message"]
-#             sumary = summarize(text, word_count=int(word_count))
-#             sentences = sent_tokenize(sumary) # tokenize it
-#             sents = set(sentences)
-#             sumary = ' '.join(sents) 
-#             word_cloud = wordcloud(sumary)
-#             # img = BytesIO(word_cloud)
-#             # img.seek(0)
-#             # file_bytes = np.asarray(bytearray(img.read()), dtype=np.uint8)
-#             # frame = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-#     return templates.TemplateResponse("index.html", {"request": request, "sumary": sumary, "wordcloud": word_cloud})
 
 
 @app.post("/wordcloud")
