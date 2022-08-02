@@ -12,6 +12,9 @@
 [![Gitpod](https://img.shields.io/badge/Gitpod-orange?style=flat&logo=gitpod&logoColor=white)](https://gitpod.io/#https://github.com/Nneji123/WordsAI)
 ![reposize](https://img.shields.io/github/repo-size/Nneji123/WordsAI)
 
+## About
+>WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. Visit the official website for more details [wordsai-api.herokuapp.com/redoc](wordsai-api.herokuapp.com/redoc)
+
 
 ## Table of Contents
   * [About](#about)
@@ -23,11 +26,6 @@
 - [Todo](#todo)
 - [License](#license)
 
-
-
-
-## About
->WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. Visit the official website for more details [wordsai-api.herokuapp.com/redoc](wordsai-api.herokuapp.com/redoc)
 ### Features
 - Speech Recognition
 - Auto Correct
