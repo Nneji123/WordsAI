@@ -1,4 +1,4 @@
-fastapi==0.79.0
+fastapi[all]
 translate==3.6.1
 uvicorn
 python-multipart
@@ -8,3 +8,5 @@ pyquery
 wordcloud
 gensim==3.8.1
 gunicorn
+nltk
+vadersentiment
