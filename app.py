@@ -51,6 +51,7 @@ app.add_middleware(
 
 favicon_path = "./images/favicon.ico"
 
+templates = Jinja2Templates(directory="templates")
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
@@ -311,16 +312,11 @@ async def speech_to_text(file: UploadFile = File(...)) -> str:
     Returns:
         A string of the text transcribed from the audio file
     """
-    # write a function to save the uploaded file and return the file name
     files = await file.read()
-    # save the file
     filename = "./temp/file.wav"
     with open(filename, "wb+") as f:
         f.write(files)
-    # open the file and return the file name
 
-    with open(filename, "rb") as f:
-        audio = f.read()
     r = sr.Recognizer()
     harvard = sr.AudioFile(filename)
     with harvard as source:
@@ -330,7 +326,7 @@ async def speech_to_text(file: UploadFile = File(...)) -> str:
 
 
 
-# templates = Jinja2Templates(directory="templates")
+
 
 
 # @app.get("/summarizers2")
