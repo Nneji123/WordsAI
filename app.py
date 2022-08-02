@@ -264,25 +264,6 @@ async def get_ocr(file: UploadFile = File(...)):
     return new_string
 
 
-# # create a route for resume parsing
-# @app.post("/resume_parser")
-# async def get_resume_parser(file: UploadFile = File(...)):
-#     """
-#     The get_resume_parser function accepts a resume as an argument and returns the parsed resume.
-#     The function uses the Resume Parser library to parse the resume.
-#     Args:
-#         resume: UploadFile: Pass in the resume that is to be parsed
-
-#     Returns:
-#         A string that is the parsed resume
-#     """
-#     contents = file.read()
-#     #file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
-#     #x = PdfReader(file_bytes)
-#     data = ResumeParser(contents).get_extracted_data()
-#     return data
-
-
 @app.post("/resume_parser")
 async def resume_parser(file: UploadFile) -> str:
     """
@@ -339,3 +320,55 @@ async def speech_to_text(file: UploadFile = File(...)) -> str:
         audio = r.record(source)
     text = r.recognize_sphinx(audio)
     return text
+
+# route for generating wordcloud and a more accurate summarizer
+from io import BytesIO
+import base64
+from fastapi import FastAPI
+from starlette.requests import Request
+from fastapi.templating import Jinja2Templates
+import nltk
+from nltk.tokenize import sent_tokenize
+from gensim.summarization import summarize
+from wordcloud import WordCloud, STOPWORDS 
+
+
+
+# templates = Jinja2Templates(directory="templates")
+
+
+# @app.get("/summarizers2")
+# def home(request: Request):
+    
+#     return templates.TemplateResponse("index.html", {"request": request})
+
+# @app.post("/summarizers")
+# async def home(request: Request):
+#     sumary=""
+#     if request.method == "POST": 
+#         form = await request.form()
+#         if form["message"] and form["word_count"]: 
+#             word_count = form["word_count"]
+#             text = form["message"]
+#             sumary = summarize(text, word_count=int(word_count))
+#             sentences = sent_tokenize(sumary) # tokenize it
+#             sents = set(sentences)
+#             sumary = ' '.join(sents) 
+#             word_cloud = wordcloud(sumary)
+#             # img = BytesIO(word_cloud)
+#             # img.seek(0)
+#             # file_bytes = np.asarray(bytearray(img.read()), dtype=np.uint8)
+#             # frame = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+#     return templates.TemplateResponse("index.html", {"request": request, "sumary": sumary, "wordcloud": word_cloud})
+
+
+@app.post("/wordcloud")
+async def wordcloud(text):
+    stopwords = set(STOPWORDS)
+    wordcloud = WordCloud(width = 800, height = 800, 
+                background_color ='white', 
+                stopwords = stopwords, 
+                min_font_size = 10).generate(text).to_image()
+    wordcloud.save("./images/wordcloud.png")
+
+    return FileResponse("./images/wordcloud.png", media_type="image/png")

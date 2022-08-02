@@ -14,3 +14,5 @@ gunicorn
 pyresparser
 pocketsphinx
 pydub
+gensim==3.5.0
+wordcloud
