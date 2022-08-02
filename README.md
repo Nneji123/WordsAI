@@ -14,9 +14,9 @@
 
 
 ## Table of Contents
-  * [Repository File Structure](#repository-file-structure)
   * [About](#about)
     + [Features](#features)
+  * [Repository File Structure](#repository-file-structure)
   * [Demo](#demo)
   * [How to run the Application](#how-to-run-the-application)
   * [Deployment](#deployment)
@@ -25,6 +25,23 @@
 
 
 
+
+## About
+>WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. Visit the official website for more details [wordsai-api.herokuapp.com/redoc](wordsai-api.herokuapp.com/redoc)
+### Features
+- Speech Recognition
+- Auto Correct
+- Machine Translation across multiple languages
+- Resume Parser
+- Text Summarizer
+- Webpage Summarizer
+- Sentiment Analyzer
+- Optical Character Recognition or OCR(extract text from images)
+- Named Entity Recognizer
+- Chatbot
+- Wordcloud Generator
+
+And many more features to come!
 
 ## Repository File Structure
 ```bash
@@ -47,26 +64,6 @@
     ├── __init__.py
     └── tests.py
 ```
-
-
-
-
-## About
->WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. Visit the official website for more details [wordsai-api.herokuapp.com/redoc](wordsai-api.herokuapp.com/redoc)
-### Features
-- Speech Recognition
-- Auto Correct
-- Machine Translation across multiple languages
-- Resume Parser
-- Text Summarizer
-- Webpage Summarizer
-- Sentiment Analyzer
-- Optical Character Recognition or OCR(extract text from images)
-- Named Entity Recognizer
-- Chatbot
-- Wordcloud Generator
-
-And many more features to come!
 
 ## Demo
 
