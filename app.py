@@ -8,21 +8,21 @@ import nltk
 import numpy as np
 import pocketsphinx
 import pytesseract
+import spacy
 import speech_recognition as sr
 import sphinxbase
 from autocorrect import Speller
+
 # route for generating wordcloud and a more accurate summarizer
 from fastapi import FastAPI, File, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import (FileResponse, PlainTextResponse,
-                               StreamingResponse)
+from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from nltk.tokenize import sent_tokenize
 from PIL import Image
 from pyresparser import ResumeParser
 from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
-from pysummarization.abstractabledoc.top_n_rank_abstractor import \
-    TopNRankAbstractor
+from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
 from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
 from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
 from pysummarization.web_scraping import WebScraping
@@ -51,6 +51,7 @@ app.add_middleware(
 favicon_path = "./images/favicon.ico"
 
 templates = Jinja2Templates(directory="templates")
+
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
@@ -277,11 +278,11 @@ async def resume_parser(file: UploadFile) -> str:
     The resume_parser function takes a file path to a resume as an argument and returns the parsed data as a dictionary.
     The returned dictionary contains the following fields:
     name, email, phone_number, work_experience (a list of dictionaries), skills (a list).
-    
-    
+
+
     Args:
         file:UploadFile: Pass the file that is uploaded to the function
-    
+
     Returns:
         A string of the file name
     """
@@ -303,11 +304,11 @@ async def resume_parser(file: UploadFile) -> str:
 async def speech_to_text(file: UploadFile = File(...)) -> str:
     """
     The speech_to_text function accepts an audio file and returns the text transcription of that file.
-    
-    
+
+
     Args:
         file:UploadFile=File(...): Pass the file that is uploaded to the function
-    
+
     Returns:
         A string of the text transcribed from the audio file
     """
@@ -329,18 +330,42 @@ async def wordcloud(text):
     """
     The wordcloud function takes in a string of text and generates a wordcloud image.
     The function also saves the image to the images folder.
-    
+
     Args:
         text: Pass in the text that will be used to create the wordcloud
-    
+
     Returns:
         A wordcloud image
     """
     stopwords = set(STOPWORDS)
-    wordcloud = WordCloud(width = 400, height = 400, 
-                background_color ='white', 
-                stopwords = stopwords, 
-                min_font_size = 10).generate(text).to_image()
+    wordcloud = (
+        WordCloud(
+            width=400,
+            height=400,
+            background_color="white",
+            stopwords=stopwords,
+            min_font_size=10,
+        )
+        .generate(text)
+        .to_image()
+    )
     wordcloud.save("./images/wordcloud.png")
 
     return FileResponse("./images/wordcloud.png", media_type="image/png")
+
+
+@app.post("/named_entity_recognition")
+async def named_entity_recognition(text: str) -> str:
+
+    """
+    The named_entity_recognition function takes in a string of text and returns the named entities in the text.
+    The function uses the NLTK library to extract the named entities.
+    Args:
+        text:str: Pass in the text that is to be parsed
+
+    Returns:
+        A string of the named entities in the text
+    """
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(text)
+    return [(X.text, X.label_) for X in doc.ents]
