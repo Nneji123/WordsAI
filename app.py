@@ -12,17 +12,21 @@ import spacy
 import speech_recognition as sr
 import sphinxbase
 from autocorrect import Speller
-
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
 # route for generating wordcloud and a more accurate summarizer
 from fastapi import FastAPI, File, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
+from fastapi.responses import (FileResponse, PlainTextResponse,
+                               StreamingResponse)
 from fastapi.templating import Jinja2Templates
 from nltk.tokenize import sent_tokenize
 from PIL import Image
+from pydantic import BaseModel
 from pyresparser import ResumeParser
 from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
-from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
+from pysummarization.abstractabledoc.top_n_rank_abstractor import \
+    TopNRankAbstractor
 from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
 from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
 from pysummarization.web_scraping import WebScraping
@@ -369,3 +373,33 @@ async def named_entity_recognition(text: str) -> str:
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(text)
     return [(X.text, X.label_) for X in doc.ents]
+
+
+# pydantic class
+class TextInput(BaseModel):
+    text: str
+
+
+# create a bot instance
+bot = ChatBot("WordsAI", 
+    preprocessors=[
+    'chatterbot.preprocessors.clean_whitespace'
+    ],
+    logic_adapters=[
+        'chatterbot.logic.BestMatch',
+        'chatterbot.logic.TimeLogicAdapter'],
+    storage_adapter='chatterbot.storage.SQLStorageAdapter')
+
+
+# train the bot
+trainer = ChatterBotCorpusTrainer(bot)
+trainer.train( "./temp/convo.yml", "chatterbot.corpus.english.greetings",
+"chatterbot.corpus.english.conversations")
+
+
+# create a post route
+@app.post("/bot", tags=["WordsAI Bot"])
+def get_response(text: TextInput):
+    answer = bot.get_response(text.text)
+    return {"WordsAI": str(answer)}
+
