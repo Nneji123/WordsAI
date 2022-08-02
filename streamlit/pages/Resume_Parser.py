@@ -15,7 +15,7 @@ This Resume Parser app uses the WordsAI API to parse a resume
 """)
 
 # write a file uploader using st.file_uploader
-wav_file = st.file_uploader("Upload a wav file", type=["pdf"])
+wav_file = st.file_uploader("Upload a pdf file", type=["pdf"])
 # save the file to a temporary directory
 if st.button ("Get Parsed Resume"):
     if wav_file is not None:

@@ -209,7 +209,7 @@ http://3.95.202.74:80/docs**
 
 # Todo
 - [ ] Add a frontend interface for the APIs with streamlit
-- [ ] Add more interesting features like; title generator and song finder etc
+- [ ] Add more interesting features like; title generator and song finder, text2speech etc
 
 # License
 [Apache License](https://github.com/Nneji123/WordsAI/LICENSE.md)
