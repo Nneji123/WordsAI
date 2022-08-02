@@ -1,73 +1,35 @@
 import base64
 from io import BytesIO
 
-import nltk
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
-from gensim.summarization import summarize
-from nltk.tokenize import sent_tokenize
-from starlette.requests import Request
-from wordcloud import STOPWORDS, WordCloud
+from translate import Translator
 
 app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
 
 
-nltk.download("punkt")  # download this
-
-
-@app.get("/")
+@app.get("/translation")
 def home(request: Request):
+    return templates.TemplateResponse("translation.html", {"request": request})
 
-    return templates.TemplateResponse("index.html", {"request": request})
 
-
-@app.post("/")
+@app.post("/translate")
 async def home(request: Request):
-    """
-    The home function returns the home page of the web app.
-    It also accepts a POST request with a form that contains two fields:
-    a message and word_count. The message is then summarized based on
-    the word count provided by user.
-
-    Args:
-        request:Request: Get the request data from the user
-
-    Returns:
-        A string that contains the summarized text.
-    """
     sumary = ""
     if request.method == "POST":
         form = await request.form()
-        if form["message"] and form["word_count"]:
-            word_count = form["word_count"]
+        if form["message"] and form["language"]:
+            language = form["language"]
             text = form["message"]
-            sumary = summarize(text, word_count=int(word_count))
-            sentences = sent_tokenize(sumary)  # tokenize it
-            sents = set(sentences)
-            sumary = " ".join(sents)
-            word_cloud = wordcloud(sumary)
+            translate = get_translation(language, text)
+            sumary = " ".join(translate)
+
     return templates.TemplateResponse(
-        "index.html", {"request": request, "sumary": sumary, "wordcloud": word_cloud}
-    )
+        "translation.html", {"request": request, "message": text, "language": language , "sumary": sumary})
 
-
-def wordcloud(text):
-    stopwords = set(STOPWORDS)
-    wordcloud = (
-        WordCloud(
-            width=400,
-            height=400,
-            background_color="white",
-            stopwords=stopwords,
-            min_font_size=10,
-        )
-        .generate(text)
-        .to_image()
-    )
-    img = BytesIO()
-    wordcloud.save(img, "PNG")
-    img.seek(0)
-    img_b64 = base64.b64encode(img.getvalue()).decode()
-    return img_b64
+def get_translation(language: str, text: str) -> str:
+    translator = Translator(to_lang=language)
+    translation = translator.translate(text)
+    return "The translation of the text is: " + translation
