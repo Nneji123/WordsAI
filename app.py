@@ -19,10 +19,8 @@ from fastapi import FastAPI, File, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import (FileResponse, PlainTextResponse,
                                StreamingResponse)
-from fastapi.templating import Jinja2Templates
 from nltk.tokenize import sent_tokenize
 from PIL import Image
-from pydantic import BaseModel
 from pyresparser import ResumeParser
 from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
 from pysummarization.abstractabledoc.top_n_rank_abstractor import \
@@ -53,8 +51,6 @@ app.add_middleware(
 )
 
 favicon_path = "./images/favicon.ico"
-
-templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/favicon.ico", include_in_schema=False)
@@ -375,10 +371,6 @@ async def named_entity_recognition(text: str) -> str:
     return [(X.text, X.label_) for X in doc.ents]
 
 
-# pydantic class
-class TextInput(BaseModel):
-    text: str
-
 
 # create a bot instance
 bot = ChatBot("WordsAI", 
@@ -399,7 +391,7 @@ trainer.train( "./temp/convo.yml", "chatterbot.corpus.english.greetings",
 
 # create a post route
 @app.post("/bot", tags=["WordsAI Bot"])
-def get_response(text: TextInput):
-    answer = bot.get_response(text.text)
+async def get_response(text: str) -> dict:
+    answer = bot.get_response(text)
     return {"WordsAI": str(answer)}
 
