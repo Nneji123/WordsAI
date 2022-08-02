@@ -1,0 +1,8 @@
+workflow "Lint on Push" {
+  on = "push"
+  resolves = ["Lint"]
+}
+
+action "Lint" {
+  uses = "wrboyce/python-lint-action@master"
+}
