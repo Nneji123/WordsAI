@@ -5,3 +5,5 @@ python-multipart
 h11
 pysummarizer
 pyquery
+wordcloud
+gensim==3.8.1

@@ -46,21 +46,28 @@ async def home(request: Request):
     return templates.TemplateResponse(
         "sentiment.html", {"request": request, "message": text, "sumary": sumary})
 
+
 @app.get("/summary")
 def home(request: Request):
     return templates.TemplateResponse("summary.html", {"request": request})
 
 
+
 @app.post("/summary_normal")
 async def home(request: Request):
-    sumary = ""
-    if request.method == "POST":
+    sumary=""
+    if request.method == "POST": 
         form = await request.form()
-        if form["message"]:
+        if form["message"] and form["word_count"]: 
+            word_count = form["word_count"]
             text = form["message"]
-            translate = get_summary(text)
-            sumary = " ".join(translate)
+            sumary = summarize(text, word_count=int(word_count))
+            sentences = sent_tokenize(sumary) # tokenize it
+            sents = set(sentences)
+            sumary = ' '.join(sents) 
+            word_cloud = wordcloud(sumary)
 
-    return templates.TemplateResponse(
-        "summary.html", {"request": request, "message": text, "sumary": sumary})
+    return templates.TemplateResponse("summary.html", {"request": request, "sumary": sumary, "wordcloud": word_cloud})
+
+
 

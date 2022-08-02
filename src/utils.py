@@ -1,12 +1,24 @@
+import base64
+from io import BytesIO
+
+import nltk
+from fastapi import FastAPI
+from fastapi.templating import Jinja2Templates
+from gensim.summarization import summarize
+from nltk.tokenize import sent_tokenize
+from starlette.requests import Request
 from translate import Translator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
-from pysummarization.abstractabledoc.top_n_rank_abstractor import \
-    TopNRankAbstractor
-from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
-from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
-from pysummarization.web_scraping import WebScraping
+from wordcloud import STOPWORDS, WordCloud
 
+nltk.download('words')
+nltk.download('stopwords')
+nltk.download('punkt') 
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('maxent_treebank_pos_tagger')
+nltk.download('punkt_tokenizer')
+nltk.download('universal_tagset')
 
 
 def get_translation(language: str, text: str) -> str:
@@ -29,44 +41,15 @@ def get_sentiment(text: str) -> str:
     return f"The sentiment of the text is: {sentiment} and the Score is: {round(result['compound'], 2)}"
 
 
-def get_summary(text: str) -> dict:
-
-    auto_abstractor = AutoAbstractor()
-
-    auto_abstractor.tokenizable_doc = SimpleTokenizer()
-
-    auto_abstractor.delimiter_list = [".", "\n"]
-
-    abstractable_doc = TopNRankAbstractor()
-
-    result_dict = auto_abstractor.summarize(text, abstractable_doc)
-    return result_dict
-
-
-def get_summary_webpage(url):
-    # Object of web scraping.
-    web_scrape = WebScraping()
-    # Web-scraping.
-    document = web_scrape.scrape(url)
-
-    # Object of automatic summarization.
-    auto_abstractor = AutoAbstractor()
-    # Set tokenizer.
-    auto_abstractor.tokenizable_doc = SimpleTokenizer()
-    # Set delimiter.
-    auto_abstractor.delimiter_list = [".", "\n"]
-    # Object of abstracting and filtering document.
-    abstractable_doc = TopNRankAbstractor()
-    # Summarize document.
-    result_dict = auto_abstractor.summarize(document, abstractable_doc)
-
-    # Output 3 summarized sentences.
-    limit = 3
-    i = 1
-    for sentence in result_dict["summarize_result"]:
-        print(sentence)
-        if i >= limit:
-            break
-        i += 1
-    return result_dict
+def wordcloud(text):
+    stopwords = set(STOPWORDS)
+    wordcloud = WordCloud(width = 800, height = 800, 
+                background_color ='white', 
+                stopwords = stopwords, 
+                min_font_size = 10).generate(text).to_image()
+    img = BytesIO()
+    wordcloud.save(img, "PNG")
+    img.seek(0)
+    img_b64 = base64.b64encode(img.getvalue()).decode()
+    return img_b64
 
