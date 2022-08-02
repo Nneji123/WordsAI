@@ -15,7 +15,7 @@ try:
 
     # app design
     app_meta('🖼️')
-    set_bg_hack('./images/background.png')
+    set_bg_hack('./images/background.jpg')
 
     # hide warning for st.pyplot() deprecation
     st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -50,9 +50,7 @@ try:
     with intro:
         sub_text(intro_text)
 
-res = re.post(f"https://credit-fraud-ml-api.herokuapp.com/predict",json=values)
-json_str = json.dumps(res.json())
-resp = json.loads(json_str)
+
 
 
 except KeyError:
