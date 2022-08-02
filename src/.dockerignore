@@ -1,0 +1,9 @@
+views.py
+templates/
+.gitpod.yml
+aws.sh
+fastapi_setup
+LICENSE.md
+README.md
+tests/
+.github/
