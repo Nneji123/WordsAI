@@ -4,16 +4,21 @@ import random
 import string
 
 import cv2
+import nltk
 import numpy as np
 import pocketsphinx
 import pytesseract
 import speech_recognition as sr
 import sphinxbase
 from autocorrect import Speller
+# route for generating wordcloud and a more accurate summarizer
 from fastapi import FastAPI, File, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import (FileResponse, PlainTextResponse,
                                StreamingResponse)
+from fastapi.templating import Jinja2Templates
+from gensim.summarization import summarize
+from nltk.tokenize import sent_tokenize
 from PIL import Image
 from pyresparser import ResumeParser
 from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
@@ -22,8 +27,10 @@ from pysummarization.abstractabledoc.top_n_rank_abstractor import \
 from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
 from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
 from pysummarization.web_scraping import WebScraping
+from starlette.requests import Request
 from translate import Translator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from wordcloud import STOPWORDS, WordCloud
 
 app = FastAPI(
     title="WordsAI API",
@@ -321,17 +328,6 @@ async def speech_to_text(file: UploadFile = File(...)) -> str:
     text = r.recognize_sphinx(audio)
     return text
 
-# route for generating wordcloud and a more accurate summarizer
-from io import BytesIO
-import base64
-from fastapi import FastAPI
-from starlette.requests import Request
-from fastapi.templating import Jinja2Templates
-import nltk
-from nltk.tokenize import sent_tokenize
-from gensim.summarization import summarize
-from wordcloud import WordCloud, STOPWORDS 
-
 
 
 # templates = Jinja2Templates(directory="templates")
@@ -364,8 +360,18 @@ from wordcloud import WordCloud, STOPWORDS
 
 @app.post("/wordcloud")
 async def wordcloud(text):
+    """
+    The wordcloud function takes in a string of text and generates a wordcloud image.
+    The function also saves the image to the images folder.
+    
+    Args:
+        text: Pass in the text that will be used to create the wordcloud
+    
+    Returns:
+        A wordcloud image
+    """
     stopwords = set(STOPWORDS)
-    wordcloud = WordCloud(width = 800, height = 800, 
+    wordcloud = WordCloud(width = 400, height = 400, 
                 background_color ='white', 
                 stopwords = stopwords, 
                 min_font_size = 10).generate(text).to_image()
