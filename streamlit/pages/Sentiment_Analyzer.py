@@ -15,6 +15,6 @@ texts = st.text_input("Input text: ")
 # make a post request to the fastapi server
 
 if st.button ("Get sentiment"):
-    response = re.post("http://localhost:8000/sentiment"+"?text="+texts)
+    response = re.post("http://wordsai-api.herokuapp.com/sentiment"+"?text="+texts)
     response_json = response.json()
     st.write(response_json)
