@@ -151,6 +151,11 @@ async def resume_parser(request: Request, file: UploadFile) -> str:
 
             with open(filename, "rb") as f:
                 pdf = f.read()
-            data = ResumeParser(filename).get_extracted_data()
+            sumary = ResumeParser(filename).get_extracted_data()
     return templates.TemplateResponse(
-        "nme.html", {"request": request, "message": filename, "sumary": data})
+        "nme.html", {"request": request, "message": filename, "sumary": sumary})
+
+
+@app.get("/ocr")
+def home(request: Request):
+    return templates.TemplateResponse("ocr.html", {"request": request})
