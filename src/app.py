@@ -8,10 +8,10 @@ app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
 
+
 @app.get("/")
 def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
-
 
 
 @app.get("/translation")
@@ -31,7 +31,7 @@ async def home(request: Request):
             sumary = " ".join(translate)
 
     return templates.TemplateResponse(
-        "translation.html", {"request": request, "message": text, "language": language , "sumary": sumary})
+        "translation.html", {"request": request, "message": text, "language": language, "sumary": sumary})
 
 
 @app.get("/sentiment")
@@ -58,19 +58,18 @@ def home(request: Request):
     return templates.TemplateResponse("summary.html", {"request": request})
 
 
-
 @app.post("/summary_normal")
 async def home(request: Request):
-    sumary=""
-    if request.method == "POST": 
+    sumary = ""
+    if request.method == "POST":
         form = await request.form()
-        if form["message"] and form["word_count"]: 
+        if form["message"] and form["word_count"]:
             word_count = form["word_count"]
             text = form["message"]
             sumary = summarize(text, word_count=int(word_count))
-            sentences = sent_tokenize(sumary) # tokenize it
+            sentences = sent_tokenize(sumary)  # tokenize it
             sents = set(sentences)
-            sumary = ' '.join(sents) 
+            sumary = ' '.join(sents)
             word_cloud = wordcloud(sumary)
 
     return templates.TemplateResponse("summary.html", {"request": request, "sumary": sumary, "wordcloud": word_cloud})
@@ -83,6 +82,21 @@ async def favicon():
     return FileResponse(favicon_path)
 
 
-@app.get('/index2')
-def index2(request: Request):
-    return templates.TemplateResponse("index2.html", {"request": request})
+@app.get("/autocorrect")
+def home(request: Request):
+    return templates.TemplateResponse("autocorrect.html", {"request": request})
+
+
+@app.post("/auto_correct")
+async def home(request: Request):
+    sumary = ""
+    if request.method == "POST":
+        form = await request.form()
+        if form["message"] and form["language"]:
+            language = form["language"]
+            text = form["message"]
+            translate = get_autocorrect(language, text)
+            sumary = " ".join(translate)
+
+    return templates.TemplateResponse(
+        "autocorrect.html", {"request": request, "message": text, "language": language, "sumary": sumary})

@@ -3,6 +3,7 @@ from io import BytesIO
 
 import nltk
 from fastapi import FastAPI
+from autocorrect import Speller
 from fastapi.templating import Jinja2Templates
 from gensim.summarization import summarize
 from nltk.tokenize import sent_tokenize
@@ -13,7 +14,7 @@ from wordcloud import STOPWORDS, WordCloud
 
 nltk.download('words')
 nltk.download('stopwords')
-nltk.download('punkt') 
+nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('maxent_treebank_pos_tagger')
@@ -25,7 +26,6 @@ def get_translation(language: str, text: str) -> str:
     translator = Translator(to_lang=language)
     translation = translator.translate(text)
     return "The translation of the text is: " + translation
-
 
 
 def get_sentiment(text: str) -> str:
@@ -43,10 +43,10 @@ def get_sentiment(text: str) -> str:
 
 def wordcloud(text):
     stopwords = set(STOPWORDS)
-    wordcloud = WordCloud(width = 800, height = 800, 
-                background_color ='white', 
-                stopwords = stopwords, 
-                min_font_size = 10).generate(text).to_image()
+    wordcloud = WordCloud(width=800, height=800,
+                          background_color='white',
+                          stopwords=stopwords,
+                          min_font_size=10).generate(text).to_image()
     img = BytesIO()
     wordcloud.save(img, "PNG")
     img.seek(0)
@@ -54,4 +54,7 @@ def wordcloud(text):
     return img_b64
 
 
-# Generate documentation about wordsai
+def get_autocorrect(language: str, text: str) -> str:
+    spell = Speller(language)
+    result = spell(text)
+    return "The autocorrected text is: " + result

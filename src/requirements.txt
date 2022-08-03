@@ -10,3 +10,4 @@ gensim==3.8.1
 gunicorn
 nltk
 vadersentiment
+autocorrect
