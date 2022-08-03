@@ -261,6 +261,6 @@ async def speech_to_text(request: Request, file: UploadFile = File(...)) -> str:
                 audio = r.record(source)
             text = r.recognize_sphinx(audio)
             return templates.TemplateResponse(
-                "ocr.html", {"request": request, "sumary": text})
+                "speech.html", {"request": request, "sumary": text})
 
 

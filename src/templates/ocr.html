@@ -88,7 +88,7 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="./">Home</a></li>
+          <li><a href="./">Home</a></li>
           <li><a href="./sentiment" target="_blank">Sentiment App</a></li>
           <li><a href="./summary" target="_blank">Summarizer App</a></li>
           <li><a href="./translation" target="_blank">Translation App</a></li>
@@ -96,7 +96,7 @@
           <li><a href="./nme" target="_blank">NME App</a></li>
           <li><a href="./chatbot" target="_blank">WordsAI Bot</a></li>
           <li><a href="./resume" target="_blank">Resume Parser</a></li>
-          <li><a href="./ocr" target="_blank">OCR App</a></li>
+          <li class="active"><a href="./ocr" target="_blank">OCR App</a></li>
           <li><a href="./speech" target="_blank">Speech2Text App</a></li>
         </ul>
 
@@ -130,7 +130,8 @@
               
               <div class="h-full bg-gray-200 p-8 rounded">
 
-          <h3 class="leading-relaxed mb-6">{{sumary}}</h3>
+                <h2 class="text-lg text-gray-700 font-bold mb-3">Extracted Text</h2>
+                <p class="text-gray-700 text-base">{{sumary}}</p>
         </div>
              {% endif %}
         </div>
