@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 
 from utils import *
 
+
 app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
@@ -119,3 +120,7 @@ async def home(request: Request):
 
     return templates.TemplateResponse(
         "nme.html", {"request": request, "message": text, "sumary": sumary})
+
+@app.get("/chatbot")
+def home(request: Request):
+    return templates.TemplateResponse("chatbot.html", {"request": request})

@@ -3,8 +3,10 @@ from io import BytesIO
 
 import nltk
 import spacy
-from fastapi import FastAPI
 from autocorrect import Speller
+#from chatterbot import ChatBot
+#from chatterbot.trainers import ChatterBotCorpusTrainer
+from fastapi import FastAPI
 from fastapi.templating import Jinja2Templates
 from gensim.summarization import summarize
 from nltk.tokenize import sent_tokenize
@@ -74,3 +76,27 @@ def get_named_entity_recognition(text: str) -> str:
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(text)
     return [(X.text, X.label_) for X in doc.ents]
+
+
+# # create a bot instance
+# bot = ChatBot("WordsAI",
+#               preprocessors=[
+#                   'chatterbot.preprocessors.clean_whitespace'
+#               ],
+#               logic_adapters=[
+#                   'chatterbot.logic.BestMatch',
+#                   'chatterbot.logic.TimeLogicAdapter'],
+#               storage_adapter='chatterbot.storage.SQLStorageAdapter')
+
+
+# # train the bot
+# trainer = ChatterBotCorpusTrainer(bot)
+# trainer.train("./temp/convo.yml", "chatterbot.corpus.english.greetings",
+#               "chatterbot.corpus.english.conversations")
+
+
+# # create a post route
+# @app.post("/bot", tags=["WordsAI Bot"])
+# async def get_response(text: str) -> dict:
+#     answer = bot.get_response(text)
+#     return {"WordsAI": str(answer)}
