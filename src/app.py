@@ -210,35 +210,57 @@ async def home(request: Request):
     return templates.TemplateResponse(
         "nme.html", {"request": request, "message": text, "sumary": sumary})
 
+
+
+
+# create a bot instance
+bot = ChatBot("WordsAI",
+              preprocessors=[
+                  'chatterbot.preprocessors.clean_whitespace'
+              ],
+              logic_adapters=[
+                  'chatterbot.logic.BestMatch',
+                  'chatterbot.logic.TimeLogicAdapter'],
+              storage_adapter='chatterbot.storage.SQLStorageAdapter')
+
+
+
+
+@app.get("/chatbot", response_class=HTMLResponse)
+def home(request: Request):
+    return templates.TemplateResponse("chatbot.html", {"request": request})
+
+@app.get("/getChatBotResponse")
+def get_bot_response(msg: str):
+    return str(bot.get_response(msg))
+
+
+
 @app.get("/speech")
 def home(request: Request):
     return templates.TemplateResponse("speech.html", {"request": request})
 
 
-# # create a bot instance
-# bot = ChatBot("WordsAI",
-#               preprocessors=[
-#                   'chatterbot.preprocessors.clean_whitespace'
-#               ],
-#               logic_adapters=[
-#                   'chatterbot.logic.BestMatch',
-#                   'chatterbot.logic.TimeLogicAdapter'],
-#               storage_adapter='chatterbot.storage.SQLStorageAdapter')
+@app.post("/speech_to_text")
+async def speech_to_text(request: Request, file: UploadFile = File(...)) -> str:
+        # write a function to save the uploaded file and return the file name
+    if request.method == "POST":
+        form = await request.form()
+        if form["file"]:
 
+            files = form["file"]
+            files = await file.read()
+            
+            filename = "./temp/file.wav"
+            with open(filename, "wb+") as f:
+                f.write(files)
 
-# # train the bot
-# trainer = ChatterBotCorpusTrainer(bot)
-# trainer.train("./temp/convo.yml", "chatterbot.corpus.english.greetings",
-#               "chatterbot.corpus.english.conversations")
+            r = sr.Recognizer()
+            harvard = sr.AudioFile(filename)
+            with harvard as source:
+                audio = r.record(source)
+            text = r.recognize_sphinx(audio)
+            return templates.TemplateResponse(
+                "ocr.html", {"request": request, "sumary": text})
 
-@app.get("/chatbot")
-def home(request: Request):
-    return templates.TemplateResponse("chatbot.html", {"request": request})
-
-@app.post("/chatterbot")
-def get_bot_response(request: Request, ):
-    userText = request.args.get('msg')
-    answer = bot.get_response(userText)
-    return templates.TemplateResponse(
-        "chatbot.html", {"request": request, "message": text, "sumary": sumary})
 
