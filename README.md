@@ -4,6 +4,8 @@
 
 
 [![Language](https://img.shields.io/badge/Python-darkblue.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
+[![HTML](https://img.shields.io/badge/HTML-black.svg?style=flat&logo=html5&logoColor=white)](http://wordsai-app.herokuapp.com)
+[![CSS](https://img.shields.io/badge/CSS-yellow.svg?style=flat&logo=css3&logoColor=white)](http://wordsai-app.herokuapp.com)
 [![Framework](https://img.shields.io/badge/FastAPI-darkgreen.svg?style=flat&logo=fastapi&logoColor=white)](https://wordsai-api.herokuapp.com/docs)
 [![Framework](https://img.shields.io/badge/Streamlit-darkred.svg?style=flat&logo=streamlit&logoColor=white)](https://share.streamlit.io/nneji123/lung-cancer-prediction/main)
 ![hosted](https://img.shields.io/badge/Heroku-430098?style=flat&logo=heroku&logoColor=white)
@@ -13,9 +15,14 @@
 ![reposize](https://img.shields.io/github/repo-size/Nneji123/WordsAI)
 
 ## About
->WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. Visit the official documentation website for more details [wordsai-api.herokuapp.com/redoc](wordsai-api.herokuapp.com/redoc)
+>WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. 
 
-Also you can visit this [link](https://nneji123-wordsai-streamlithome-x32anq.streamlitapp.com/) to play around with the APIs!
+>HTML Web App: http://wordsai-app.herokuapp.com
+
+>API Documentation: http://wordsai-api.herokuapp.com
+
+>Streamlit App: https://nneji123-wordsai-streamlithome-x32anq.streamlitapp.com/
+
 
 ## Table of Contents
   * [About](#about)
@@ -40,7 +47,7 @@ Also you can visit this [link](https://nneji123-wordsai-streamlithome-x32anq.str
 - Chatbot
 - Wordcloud Generator
 
-**Visit wordsai-app.herokuapp.com** to see all the available feautures!
+to see all the available feautures!
 
 
 ## Repository File Structure
