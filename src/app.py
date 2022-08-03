@@ -249,7 +249,7 @@ async def speech_to_text(request: Request, file: UploadFile = File(...)) -> str:
         if form["file"]:
 
             files = form["file"]
-            files = await file.read()
+            files = await files.read()
             
             filename = "./temp/file.wav"
             with open(filename, "wb+") as f:

@@ -3,14 +3,10 @@ uvicorn
 python-multipart
 h11
 gunicorn
+pysummarization==1.1.9
+vaderSentiment==3.3.2
+pyquery==1.4.3
 translate
-pysummarizer
-pyquery
-wordcloud
-gensim==3.8.1
-gunicorn
-nltk
-vadersentiment
 autocorrect
 SpeechRecognition
 opencv-python-headless==4.2.0.32
