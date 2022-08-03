@@ -4,6 +4,6 @@ services:
     container_name: simple-python-server
     command: ./docker.sh
     ports:
-      - 8000:8000
+      - 8500:8000
     volumes:
       - .:/app

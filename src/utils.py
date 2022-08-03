@@ -1,16 +1,30 @@
 import base64
+import io
+import os
+import random
+import string
 from io import BytesIO
 
+import cv2
 import nltk
+import numpy as np
+import pocketsphinx
+import pytesseract
 import spacy
+import speech_recognition as sr
+import sphinxbase
 from autocorrect import Speller
-#from chatterbot import ChatBot
-#from chatterbot.trainers import ChatterBotCorpusTrainer
-from fastapi import FastAPI
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
+from fastapi import FastAPI, File, Response, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import (FileResponse, PlainTextResponse,
+                               StreamingResponse)
 from fastapi.templating import Jinja2Templates
 from gensim.summarization import summarize
 from nltk.tokenize import sent_tokenize
-
+from PIL import Image
+from pyresparser import ResumeParser
 from starlette.requests import Request
 from translate import Translator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
@@ -65,40 +79,7 @@ def get_autocorrect(language: str, text: str) -> str:
 
 
 def get_named_entity_recognition(text: str) -> str:
-    """
-    The named_entity_recognition function takes in a string of text and returns the named entities in the text.
-    The function uses the NLTK library to extract the named entities.
-    Args:
-        text:str: Pass in the text that is to be parsed
 
-    Returns:
-        A string of the named entities in the text
-    """
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(text)
     return [(X.text, X.label_) for X in doc.ents]
-
-
-# # create a bot instance
-# bot = ChatBot("WordsAI",
-#               preprocessors=[
-#                   'chatterbot.preprocessors.clean_whitespace'
-#               ],
-#               logic_adapters=[
-#                   'chatterbot.logic.BestMatch',
-#                   'chatterbot.logic.TimeLogicAdapter'],
-#               storage_adapter='chatterbot.storage.SQLStorageAdapter')
-
-
-# # train the bot
-# trainer = ChatterBotCorpusTrainer(bot)
-# trainer.train("./temp/convo.yml", "chatterbot.corpus.english.greetings",
-#               "chatterbot.corpus.english.conversations")
-
-
-# # create a post route
-# @app.post("/bot", tags=["WordsAI Bot"])
-# async def get_response(text: str) -> dict:
-#     answer = bot.get_response(text)
-#     return {"WordsAI": str(answer)}
-

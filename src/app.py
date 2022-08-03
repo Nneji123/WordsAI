@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request, File, Response, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 
 from fastapi.templating import Jinja2Templates
-#from pyresparser import ResumeParser
+from pyresparser import ResumeParser
 
 from utils import *
 
@@ -143,8 +143,10 @@ async def resume_parser(request: Request, file: UploadFile) -> str:
         if form["file"]:
 
             files = form["file"]
+            files = await file.read()
             # save the file
             filename = "./temp/file.pdf"
+
             with open(filename, "wb+") as f:
                 f.write(files)
             # open the file and return the file name
@@ -153,13 +155,85 @@ async def resume_parser(request: Request, file: UploadFile) -> str:
                 pdf = f.read()
             sumary = ResumeParser(filename).get_extracted_data()
     return templates.TemplateResponse(
-        "nme.html", {"request": request, "message": filename, "sumary": sumary})
+        "resume.html", {"request": request, "message": filename, "sumary": sumary})
 
 
 @app.get("/ocr")
 def home(request: Request):
     return templates.TemplateResponse("ocr.html", {"request": request})
 
+
+@app.post("/ocr_parser")
+async def get_ocr(request:Request, file: UploadFile = File(...)):
+        # write a function to save the uploaded file and return the file name
+    if request.method == "POST":
+        form = await request.form()
+        if form["file"]:
+
+            files = form["file"]
+            contents = io.BytesIO(await files.read())
+            file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
+            img = cv2.imdecode(file_bytes, 1)
+            # Converting image to array
+            image_arr = np.array(img)
+            # Converting image to grayscale
+            gray_img_arr = cv2.cvtColor(image_arr, cv2.COLOR_BGR2GRAY)
+            # Converting image back to rbg
+            image = Image.fromarray(gray_img_arr)
+
+            # Extracting text from image
+            custom_config = r"-l eng --oem 3 --psm 6"
+            text = pytesseract.image_to_string(image, config=custom_config)
+
+            # Remove symbol if any
+            characters_to_remove = "!()@—*“>+-/,'|£#%$&^_~"
+            new_string = text
+            for character in characters_to_remove:
+                new_string = new_string.replace(character, "")
+
+            # Converting string into list to dislay extracted text in seperate line
+            new_string = new_string.split("\n")
+            return templates.TemplateResponse(
+        "ocr.html", {"request": request, "sumary": new_string})
+
+
+@app.post("/named_e_r")
+async def home(request: Request):
+    sumary = ""
+    if request.method == "POST":
+        form = await request.form()
+        if form["file"]:
+            text = form["file"]
+            translate = get_ocr(text)
+            sumary = translate
+
+    return templates.TemplateResponse(
+        "nme.html", {"request": request, "message": text, "sumary": sumary})
+
 @app.get("/speech")
 def home(request: Request):
     return templates.TemplateResponse("speech.html", {"request": request})
+
+
+# # create a bot instance
+# bot = ChatBot("WordsAI",
+#               preprocessors=[
+#                   'chatterbot.preprocessors.clean_whitespace'
+#               ],
+#               logic_adapters=[
+#                   'chatterbot.logic.BestMatch',
+#                   'chatterbot.logic.TimeLogicAdapter'],
+#               storage_adapter='chatterbot.storage.SQLStorageAdapter')
+
+
+# # train the bot
+# trainer = ChatterBotCorpusTrainer(bot)
+# trainer.train("./temp/convo.yml", "chatterbot.corpus.english.greetings",
+#               "chatterbot.corpus.english.conversations")
+
+
+# create a post route
+@app.post("/bot", tags=["WordsAI Bot"])
+async def get_response(text: str) -> dict:
+    answer = bot.get_response(text)
+    return {"WordsAI": str(answer)}
