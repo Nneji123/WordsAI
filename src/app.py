@@ -1,12 +1,9 @@
-from fastapi import FastAPI, Request, File, Response, UploadFile
-
+from fastapi import FastAPI, File, Request, Response, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
-
 from fastapi.templating import Jinja2Templates
 from pyresparser import ResumeParser
 
 from utils import *
-
 
 app = FastAPI()
 
