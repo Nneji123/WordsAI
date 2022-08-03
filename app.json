@@ -3,5 +3,6 @@
     "description": "Deploy WordsAI Application to Heroku",
     "repository": "https://github.com/Nneji123/WordsAI/src",
     "logo": "https://github.com/Nneji123/WordsAI/api/images/logo.png",
+    "stack": "container"
     "keywords": ["python", "fastapi", "html"]
 }
