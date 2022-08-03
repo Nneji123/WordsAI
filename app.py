@@ -3,7 +3,7 @@ import io
 import os
 import random
 import string
-from io import BytesIO
+from io import BytesI
 
 import cv2
 import nltk
@@ -373,22 +373,21 @@ async def named_entity_recognition(text: str) -> str:
     return [(X.text, X.label_) for X in doc.ents]
 
 
-
 # create a bot instance
-bot = ChatBot("WordsAI", 
-    preprocessors=[
-    'chatterbot.preprocessors.clean_whitespace'
-    ],
-    logic_adapters=[
-        'chatterbot.logic.BestMatch',
-        'chatterbot.logic.TimeLogicAdapter'],
-    storage_adapter='chatterbot.storage.SQLStorageAdapter')
+bot = ChatBot("WordsAI",
+              preprocessors=[
+                  'chatterbot.preprocessors.clean_whitespace'
+              ],
+              logic_adapters=[
+                  'chatterbot.logic.BestMatch',
+                  'chatterbot.logic.TimeLogicAdapter'],
+              storage_adapter='chatterbot.storage.SQLStorageAdapter')
 
 
 # train the bot
 trainer = ChatterBotCorpusTrainer(bot)
-trainer.train( "./temp/convo.yml", "chatterbot.corpus.english.greetings",
-"chatterbot.corpus.english.conversations")
+trainer.train("./temp/convo.yml", "chatterbot.corpus.english.greetings",
+              "chatterbot.corpus.english.conversations")
 
 
 # create a post route
@@ -396,6 +395,7 @@ trainer.train( "./temp/convo.yml", "chatterbot.corpus.english.greetings",
 async def get_response(text: str) -> dict:
     answer = bot.get_response(text)
     return {"WordsAI": str(answer)}
+
 
 @app.post("/wordcloud_streamlit")
 async def wordcloud(text):
