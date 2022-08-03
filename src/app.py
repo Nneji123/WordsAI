@@ -231,9 +231,14 @@ def home(request: Request):
 # trainer.train("./temp/convo.yml", "chatterbot.corpus.english.greetings",
 #               "chatterbot.corpus.english.conversations")
 
+@app.get("/chatbot")
+def home(request: Request):
+    return templates.TemplateResponse("chatbot.html", {"request": request})
 
-# create a post route
-@app.post("/bot", tags=["WordsAI Bot"])
-async def get_response(text: str) -> dict:
-    answer = bot.get_response(text)
-    return {"WordsAI": str(answer)}
+@app.post("/chatterbot")
+def get_bot_response(request: Request, ):
+    userText = request.args.get('msg')
+    answer = bot.get_response(userText)
+    return templates.TemplateResponse(
+        "chatbot.html", {"request": request, "message": text, "sumary": sumary})
+
