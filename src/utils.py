@@ -53,3 +53,5 @@ def wordcloud(text):
     img_b64 = base64.b64encode(img.getvalue()).decode()
     return img_b64
 
+
+# Generate documentation about wordsai

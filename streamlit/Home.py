@@ -43,16 +43,15 @@ st.markdown("""
     - Optical Character Recognition
     - Speech to Text
 
-    You can also check out the [Github repo](https://github.com/Nneji123/WordsAI) for more information.
+    You can also check out the [Github repo](https://github.com/Nneji123/WordsAI) for more information or check out the API [documentation](http://wordsai-api.herokuapp.com).
 
     """, unsafe_allow_html=True)
 
 st.markdown("""
-    ### How to use
-    1. Select a category from the sidebar.
-    2. Select a app from the sidebar.
-    3. Input text or URL.
-    4. Click the button.
+    ### How to use this app
+    1. Select a app from the sidebar.
+    2. Input text or URL.
+    3. Click the button.
     """, unsafe_allow_html=True)
 
 st.markdown("""

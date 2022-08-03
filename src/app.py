@@ -1,6 +1,7 @@
 from utils import *
 
 from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse, StreamingResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
@@ -74,5 +75,14 @@ async def home(request: Request):
 
     return templates.TemplateResponse("summary.html", {"request": request, "sumary": sumary, "wordcloud": word_cloud})
 
+favicon_path = "favicon.ico"
 
 
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return FileResponse(favicon_path)
+
+
+@app.get('/index2')
+def index2(request: Request):
+    return templates.TemplateResponse("index2.html", {"request": request})
