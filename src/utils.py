@@ -10,6 +10,7 @@ from fastapi import FastAPI
 from fastapi.templating import Jinja2Templates
 from gensim.summarization import summarize
 from nltk.tokenize import sent_tokenize
+
 from starlette.requests import Request
 from translate import Translator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
@@ -100,3 +101,4 @@ def get_named_entity_recognition(text: str) -> str:
 # async def get_response(text: str) -> dict:
 #     answer = bot.get_response(text)
 #     return {"WordsAI": str(answer)}
+

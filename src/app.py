@@ -1,6 +1,9 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, File, Response, UploadFile
+
 from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
+
 from fastapi.templating import Jinja2Templates
+#from pyresparser import ResumeParser
 
 from utils import *
 
@@ -121,6 +124,7 @@ async def home(request: Request):
     return templates.TemplateResponse(
         "nme.html", {"request": request, "message": text, "sumary": sumary})
 
+
 @app.get("/chatbot")
 def home(request: Request):
     return templates.TemplateResponse("chatbot.html", {"request": request})
@@ -129,3 +133,24 @@ def home(request: Request):
 @app.get("/resume")
 def home(request: Request):
     return templates.TemplateResponse("resume.html", {"request": request})
+
+
+@app.post("/resume_parser")
+async def resume_parser(request: Request, file: UploadFile) -> str:
+    # write a function to save the uploaded file and return the file name
+    if request.method == "POST":
+        form = await request.form()
+        if form["file"]:
+
+            files = form["file"]
+            # save the file
+            filename = "./temp/file.pdf"
+            with open(filename, "wb+") as f:
+                f.write(files)
+            # open the file and return the file name
+
+            with open(filename, "rb") as f:
+                pdf = f.read()
+            data = ResumeParser(filename).get_extracted_data()
+    return templates.TemplateResponse(
+        "nme.html", {"request": request, "message": filename, "sumary": data})
