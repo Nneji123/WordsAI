@@ -1,8 +1,8 @@
-from utils import *
-
 from fastapi import FastAPI, Request
-from fastapi.responses import FileResponse, StreamingResponse, HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
+
+from utils import *
 
 app = FastAPI()
 
@@ -100,3 +100,22 @@ async def home(request: Request):
 
     return templates.TemplateResponse(
         "autocorrect.html", {"request": request, "message": text, "language": language, "sumary": sumary})
+
+
+@app.get("/nme")
+def home(request: Request):
+    return templates.TemplateResponse("nme.html", {"request": request})
+
+
+@app.post("/named_e_r")
+async def home(request: Request):
+    sumary = ""
+    if request.method == "POST":
+        form = await request.form()
+        if form["message"]:
+            text = form["message"]
+            translate = get_named_entity_recognition(text)
+            sumary = translate
+
+    return templates.TemplateResponse(
+        "nme.html", {"request": request, "message": text, "sumary": sumary})

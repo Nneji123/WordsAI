@@ -2,6 +2,7 @@ import base64
 from io import BytesIO
 
 import nltk
+import spacy
 from fastapi import FastAPI
 from autocorrect import Speller
 from fastapi.templating import Jinja2Templates
@@ -59,3 +60,17 @@ def get_autocorrect(language: str, text: str) -> str:
     result = spell(text)
     return "The autocorrected text is: " + result
 
+
+def get_named_entity_recognition(text: str) -> str:
+    """
+    The named_entity_recognition function takes in a string of text and returns the named entities in the text.
+    The function uses the NLTK library to extract the named entities.
+    Args:
+        text:str: Pass in the text that is to be parsed
+
+    Returns:
+        A string of the named entities in the text
+    """
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(text)
+    return [(X.text, X.label_) for X in doc.ents]
