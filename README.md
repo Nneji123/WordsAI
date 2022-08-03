@@ -174,6 +174,13 @@ heroku container:push web
 ```
 heroku container:release web
 ```
+
+Click the button below to deploy the application.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+
+
 </details>
 
 <details> 
