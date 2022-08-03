@@ -58,3 +58,4 @@ def get_autocorrect(language: str, text: str) -> str:
     spell = Speller(language)
     result = spell(text)
     return "The autocorrected text is: " + result
+
