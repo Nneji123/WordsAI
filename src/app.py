@@ -124,3 +124,8 @@ async def home(request: Request):
 @app.get("/chatbot")
 def home(request: Request):
     return templates.TemplateResponse("chatbot.html", {"request": request})
+
+
+@app.get("/resume")
+def home(request: Request):
+    return templates.TemplateResponse("resume.html", {"request": request})
