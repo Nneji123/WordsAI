@@ -159,3 +159,7 @@ async def resume_parser(request: Request, file: UploadFile) -> str:
 @app.get("/ocr")
 def home(request: Request):
     return templates.TemplateResponse("ocr.html", {"request": request})
+
+@app.get("/speech")
+def home(request: Request):
+    return templates.TemplateResponse("speech.html", {"request": request})
