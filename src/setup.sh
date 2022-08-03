@@ -14,5 +14,7 @@ python -m nltk.downloader maxent_treebank_pos_tagger
 python -m nltk.downloader punkt_tokenizer
 python -m nltk.downloader universal_tagset
 
+pip install --upgrade numpy
+pip install fastapi[all]
 
 gunicorn -w 3 -k uvicorn.workers.UvicornWorker app:app --bind 0.0.0.0:$PORT

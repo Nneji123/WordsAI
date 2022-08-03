@@ -40,7 +40,8 @@ Also you can visit this [link](https://nneji123-wordsai-streamlithome-x32anq.str
 - Chatbot
 - Wordcloud Generator
 
-And many more features to come!
+**Visit wordsai-app.herokuapp.com** to see all the available feautures!
+
 
 ## Repository File Structure
 ```bash
@@ -209,8 +210,9 @@ http://3.95.202.74:80/docs**
 </details>
 
 # Todo
-- [ ] Add a frontend interface for the APIs with streamlit
-- [ ] Add more interesting features like; title generator and song finder, text2speech etc
+- [x] Add a frontend interface for the APIs with streamlit and html, css , javascript
+- [ ] Add more interesting features like; title generator and song finder, text2speech, pdf text extractor,  etc
+- [x] Add functional chatbot
 
 # License
 [Apache License](https://github.com/Nneji123/WordsAI/LICENSE.md)
