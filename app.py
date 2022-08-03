@@ -3,7 +3,7 @@ import io
 import os
 import random
 import string
-from io import BytesI
+from io import BytesIO
 
 import cv2
 import nltk
