@@ -1,0 +1,6 @@
+{
+    "name": "WordsAI",
+    "description": "Deploy WordsAI Application to Heroku",
+    "repository": "https://github.com/Nneji123/WordsAI/src",
+    "keywords": ["python", "fastapi", "html"]
+}
