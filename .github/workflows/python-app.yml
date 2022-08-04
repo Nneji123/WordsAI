@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Run build script 
-        run: chmod u+x ./.github/workflows/scripts/setup.sh && ./.github/workflows/scripts/setup.sh && pip install -r ./src/requirements.txt 
+        run: chmod u+x ./.github/workflows/scripts/setup.sh && ./.github/workflows/scripts/setup.sh && pip install -r ./.github/workflows/scripts/requirements.txt 
         shell: bash
       - name: Install dependencies
         run: |
