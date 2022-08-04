@@ -76,3 +76,11 @@ def test_named_entity_recognition():
 
 def test_remove_profanity():
     assert remove_profanity("go to hell") == "go to ****"
+
+def test_detect_language():
+    assert detect_language("Hello") == 'fi'
+    assert detect_language("ciao") == 'pt'
+
+def test_text_to_speech():
+    assert text_to_speech("en", "Hello") == "Text to speech conversion successful"
+    
