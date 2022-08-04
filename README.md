@@ -10,9 +10,10 @@
 [![Framework](https://img.shields.io/badge/Streamlit-darkred.svg?style=flat&logo=streamlit&logoColor=white)](https://share.streamlit.io/nneji123/lung-cancer-prediction/main)
 ![hosted](https://img.shields.io/badge/Heroku-430098?style=flat&logo=heroku&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-blue?style=flat&logo=docker&logoColor=white)
-![build](https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat)
 [![Gitpod](https://img.shields.io/badge/Gitpod-orange?style=flat&logo=gitpod&logoColor=white)](https://gitpod.io/#https://github.com/Nneji123/WordsAI)
 ![reposize](https://img.shields.io/github/repo-size/Nneji123/WordsAI)
+[![Deploy](https://github.com/Nneji123/WordsAI/actions/workflows/deploy.yml/badge.svg)](https://github.com/Nneji123/WordsAI/actions/workflows/deploy.yml)
+
 
 ## About
 >WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. 
