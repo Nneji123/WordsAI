@@ -65,14 +65,4 @@ def test_autocorrect():
     assert response.json() == "The autocorrected text is: what"
 
 
-def test_named_entity_recognition_api_endpoint():
-    response = client.post(
-        "named_entity_recognition?text=Bill%20Gates%20is%2029%20years%20old%20living%20in%20Jersey%20in%20the%20year%201999'"
-    )
-    assert response.status_code == 200
-    assert response.json() == [
-        ["Bill Gates", "PERSON"],
-        ["29 years old", "DATE"],
-        ["Jersey", "GPE"],
-        ["the year 1999", "DATE"],
-    ]
+
