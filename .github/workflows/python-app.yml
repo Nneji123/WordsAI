@@ -3,7 +3,7 @@ steps:
 - name: Set up Python
   uses: actions/setup-python@v4
   with:
-    python-version: '3.x'
+    python-version: '3.8.13'
 - name: Install dependencies
   run: |
     python -m pip install --upgrade pip
@@ -12,4 +12,4 @@ steps:
   run: |
     pip install pytest
     pip install pytest-cov
-    cd pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+    cd .. pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
