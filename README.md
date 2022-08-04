@@ -133,6 +133,21 @@ You should be able to view the application by going to http://localhost:8000/
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Nneji123/WordsAI)
 </details>
 
+## Tests
+To test the HTML Web app do the following:
+1. Clone the repository:
+```
+git clone https://github.com/Nneji123/WordsAI.git
+```
+2. Change the working directory and install the requirements and pytest:
+```
+cd src && pip install -r requirements.txt && pip install pytest
+```
+3. Move to the tests folder and run the tests
+```
+cd .. && cd tests && pytest
+```
+
 ## Deployment
 
 <details> 
