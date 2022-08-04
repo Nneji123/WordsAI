@@ -1,4 +1,5 @@
 from fastapi import FastAPI, File, Request, Response, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from pyresparser import ResumeParser
@@ -6,6 +7,23 @@ from pyresparser import ResumeParser
 from utils import *
 
 app = FastAPI()
+
+app = FastAPI(
+    title="WordsAI WebApp Backend",
+    description="""A collection of NLP Applications served as APIs using FastAPI.""",
+    version="0.0.1",
+)
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 templates = Jinja2Templates(directory="templates")
 

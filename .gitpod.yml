@@ -1,7 +1,7 @@
 # Commands to start on workspace startup
 tasks:
   - init: |
-      npm install -g heroku
+      npm install -g heroku && cd src && 
   - command: |
       cd src && docker-compose up -d --build
 # Ports to expose on workspace startup
