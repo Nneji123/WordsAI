@@ -29,6 +29,7 @@ from starlette.requests import Request
 from translate import Translator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from wordcloud import STOPWORDS, WordCloud
+from better_profanity import profanity
 
 nltk.download('words')
 nltk.download('stopwords')
@@ -83,3 +84,6 @@ def get_named_entity_recognition(text: str) -> str:
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(text)
     return [(X.text, X.label_) for X in doc.ents]
+
+def remove_profanity(text):
+    return profanity.censor(text)

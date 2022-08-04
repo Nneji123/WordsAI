@@ -24,3 +24,4 @@ pydub
 wordcloud
 chatterbot-corpus==1.2.0
 pytz==2022.1
+better_profanity

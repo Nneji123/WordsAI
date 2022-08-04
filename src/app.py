@@ -12,6 +12,8 @@ app = FastAPI(
     title="WordsAI WebApp Backend",
     description="""A collection of NLP Applications served as APIs using FastAPI.""",
     version="0.0.1",
+    docs_url=None, 
+    redoc_url=None
 )
 
 origins = ["*"]
@@ -26,6 +28,13 @@ app.add_middleware(
 
 
 templates = Jinja2Templates(directory="templates")
+
+favicon_path = "favicon.ico"
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return FileResponse(favicon_path)
 
 
 @app.get("/")
@@ -93,12 +102,7 @@ async def home(request: Request):
 
     return templates.TemplateResponse("summary.html", {"request": request, "sumary": sumary, "wordcloud": word_cloud})
 
-favicon_path = "favicon.ico"
 
-
-@app.get("/favicon.ico", include_in_schema=False)
-async def favicon():
-    return FileResponse(favicon_path)
 
 
 @app.get("/autocorrect")

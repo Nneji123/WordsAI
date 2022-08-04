@@ -40,3 +40,6 @@ def test_get_autocorrect():
 
 def test_named_entity_recognition():
     assert get_named_entity_recognition("Bill Gates is 20 years old living in Jersey in the year 1999") == [('Bill Gates', 'PERSON'), ('20 years old', 'DATE'), ('Jersey', 'GPE'), ('the year 1999', 'DATE')]
+
+def test_remove_profanity():
+    assert remove_profanity("go to hell") == "go to ****"
