@@ -5,6 +5,7 @@ h11
 gunicorn
 translate
 pysummarizer
+pysummarization==1.1.9
 pyquery
 wordcloud
 gensim==3.8.1
