@@ -3,29 +3,40 @@ sys.path.append(os.path.abspath(os.path.join('..', 'config')))
 
 from src.utils import *
 
-def get_translation(language: str, text: str) -> str:
-    translator = Translator(to_lang=language)
-    translation = translator.translate(text)
-    return "The translation of the text is: " + translation
-
-
 # import pytest and create a test function to test the `get_translation` function
 def test_get_translation():
     assert get_translation("en", "Hello") == "The translation of the text is: Hello"
     assert get_translation("es", "Hello") == "The translation of the text is: Hola"
     assert get_translation("fr", "Hello") == "The translation of the text is: Bonjour"
     assert get_translation("de", "Hello") == "The translation of the text is: Hallo"
-    assert get_translation("it", "Hello") == "The translation of the text is: Ciao"
-    assert get_translation("pt", "Hello") == "The translation of the text is: Olá"
-    assert get_translation("ru", "Hello") == "The translation of the text is: Привет"
-    assert get_translation("ja", "Hello") == "The translation of the text is: こんにちは"
-    assert get_translation("zh", "Hello") == "The translation of the text is: 你好"
-    assert get_translation("ar", "Hello") == "The translation of the text is: أهلا"
-    assert get_translation("ko", "Hello") == "The translation of the text is: 안녕하세요"
-    assert get_translation("fa", "Hello") == "The translation of the text is: خوش آمدید"
-    assert get_translation("hi", "Hello") == "The translation of the text is: नमस्ते"
-    assert get_translation("bn", "Hello") == "The translation of the text is: হ্যালো"
-    assert get_translation("ta", "Hello") == "The translation of the text is: வணக்கம்"
-    assert get_translation("te", "Hello") == "The translation of the text is: నమస్కారం"
-    
 
+    
+def test_get_sentiment():
+    assert get_sentiment("Hello") == "The sentiment of the text is: Neutral and the Score is: 0.0"
+    assert get_sentiment("I am happy") == "The sentiment of the text is: Positive and the Score is: 0.57"
+    assert get_sentiment("I am sad") == "The sentiment of the text is: Negative and the Score is: -0.48"
+    assert get_sentiment("I am neutral") == "The sentiment of the text is: Neutral and the Score is: 0.0"
+    assert get_sentiment("I am not happy") == "The sentiment of the text is: Negative and the Score is: -0.46"
+    assert get_sentiment("I am not sad") == "The sentiment of the text is: Positive and the Score is: 0.37"
+    assert get_sentiment("I am not neutral") == "The sentiment of the text is: Neutral and the Score is: 0.0"
+
+
+
+# import pytest and create a test function to test the `wordcloud` function
+def get_autocorrect(language: str, text: str) -> str:
+    spell = Speller(language)
+    result = spell(text)
+    return "The autocorrected text is: " + result
+
+
+def get_named_entity_recognition(text: str) -> str:
+
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(text)
+    return [(X.text, X.label_) for X in doc.ents] 
+
+def test_get_autocorrect():
+    assert get_autocorrect("en", "wHat") == "The autocorrected text is: what"
+
+def test_named_entity_recognition():
+    assert get_named_entity_recognition("Bill Gates is 20 years old living in Jersey in the year 1999") == [('Bill Gates', 'PERSON'), ('20 years old', 'DATE'), ('Jersey', 'GPE'), ('the year 1999', 'DATE')]
