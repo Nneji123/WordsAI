@@ -301,22 +301,23 @@ async def home(request: Request):
         "profanity.html", {"request": request, "message": text, "sumary": sumary}
     )
 
-@app.get("/text_to_speech")
-def home(request: Request):
-    return templates.TemplateResponse("text2speech.html", {"request": request})
+# @app.get("/text_to_speech")
+# def home(request: Request):
+#     return templates.TemplateResponse("text2speech.html", {"request": request})
 
-@app.post("/text2speech")
-async def home(request: Request):
-    sumary = ""
-    if request.method == "POST":
-        form = await request.form()
-        if form["message"] and form["language"]:
-            language = form["language"]
-            text = form["message"]
-            translate = text2speech(language, text)
-            sumary = " ".join(translate)
-
-    return templates.TemplateResponse(
-        "text2speech.html",
-        {"request": request, "message": text, "language": language, "sumary": sumary},
-    )
+# @app.get("/text2speech")
+# async def home(request: Request):
+#     sumary = ""
+#     if request.method == "POST":
+#         form = await request.form()
+#         if form["message"] and form["language"]:
+#             language = form["language"]
+#             text = form["message"]
+#             translate = text_to_speech(language, text)
+#             path = './temp/welcome.mp3'
+#             value = FileResponse("./temp/welcome.mp3", media_type="audio/mp3")
+#             return value
+#     # return templates.TemplateResponse(
+#     #     "text2speech.html",
+#     #     {"request": request, "message": text, "language": language, "download": value},
+#     # )

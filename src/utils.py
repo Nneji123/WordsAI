@@ -109,6 +109,6 @@ myobj.save("welcome.mp3")
 
 def text_to_speech(language:str, text: str) -> str:
     tts = gTTS(text=text, lang=language, slow=False)
-    tts.save("../src/temp/welcome.mp3")
+    tts.save("./temp/welcome.mp3")
     #os.system("mpg321 /temp/welcome.mp3")
     return "Text to speech conversion successful"

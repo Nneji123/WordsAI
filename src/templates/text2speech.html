@@ -115,7 +115,7 @@
 
         <div class="lg:w-3/6 mx-auto">
           <div class="rounded-lg h-64 overflow-hidden">
-            <form action="/auto_correct" method="post">
+            <form action="/text2speech" method="post">
               <div class="relative mb-1">
                 
                 <textarea
@@ -136,11 +136,11 @@
             </form>
           </div>
           <div class="flex flex-col sm:flex-row mt-0 lg:w-1/2 mr-auto ml-auto">
-             {% if sumary %}
-              
+             {% if value %}
+             <a class="btn btn-success" href="data:audio/mp3;,{{text2speech}}">Download</a>
               <div class="h-full bg-gray-200 p-8 rounded">
                 <h2 class="text-lg text-gray-700 font-bold mb-3">Download</h2>
-                <a class="btn btn-success" href="{{url_for('download')}}">Download</a>
+                
 
 
           
