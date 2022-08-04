@@ -3,7 +3,7 @@ tasks:
   - init: |
       npm install -g heroku
   - command: |
-      docker-compose up -d --build
+      cd src && docker-compose up -d --build
 # Ports to expose on workspace startup
 ports:
   - port: 8080
