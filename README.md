@@ -17,11 +17,11 @@
 ## About
 >WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. 
 
->HTML Web App: http://wordsai-app.herokuapp.com
+HTML Web App: http://wordsai-app.herokuapp.com
 
->API Documentation: http://wordsai-api.herokuapp.com
+API Documentation: http://wordsai-api.herokuapp.com
 
->Streamlit App: https://nneji123-wordsai-streamlithome-x32anq.streamlitapp.com/
+Streamlit App: https://nneji123-wordsai-streamlithome-x32anq.streamlitapp.com/
 
 
 ## Table of Contents
@@ -227,6 +227,8 @@ http://3.95.202.74:80/docs**
 - [x] Add a frontend interface for the APIs with streamlit and html, css , javascript
 - [ ] Add more interesting features like; title generator and song finder, text2speech, pdf text extractor,  etc
 - [x] Add functional chatbot
+- [ ] Add error handling functionality to the backend of the html app
+
 
 # License
 [Apache License](https://github.com/Nneji123/WordsAI/LICENSE.md)
