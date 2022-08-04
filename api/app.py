@@ -386,8 +386,8 @@ bot = ChatBot("WordsAI",
 
 # train the bot
 trainer = ChatterBotCorpusTrainer(bot)
-trainer.train("./temp/convo.yml", "chatterbot.corpus.english.greetings",
-              "chatterbot.corpus.english.conversations")
+#trainer.train("./train_bot/convo.yml", "chatterbot.corpus.english.greetings",
+#              "chatterbot.corpus.english.conversations")
 
 
 # create a post route
