@@ -26,10 +26,15 @@ Streamlit App: https://nneji123-wordsai-streamlithome-x32anq.streamlitapp.com/
 
 ## Table of Contents
   * [About](#about)
+  * [Table of Contents](#table-of-contents)
     + [Features](#features)
   * [Repository File Structure](#repository-file-structure)
   * [Demo](#demo)
+    + [API Demo](#api-demo)
+    + [HTML App Demo](#html-app-demo)
+    + [Streamlit App Demo](#streamlit-app-demo)
   * [How to run the Application](#how-to-run-the-application)
+  * [Tests](#tests)
   * [Deployment](#deployment)
 - [Todo](#todo)
 - [License](#license)
@@ -47,7 +52,6 @@ Streamlit App: https://nneji123-wordsai-streamlithome-x32anq.streamlitapp.com/
 - Chatbot
 - Wordcloud Generator
 
-to see all the available feautures!
 
 
 ## Repository File Structure
@@ -73,6 +77,9 @@ to see all the available feautures!
 ```
 
 ## Demo
+### API Demo
+### HTML App Demo
+### Streamlit App Demo
 
 ## How to run the Application
 <details> 
@@ -134,6 +141,9 @@ You should be able to view the application by going to http://localhost:8000/
 </details>
 
 ## Tests
+<details> 
+  <summary><b>Test HTML Web App Functions</b></summary>
+
 To test the HTML Web app do the following:
 1. Clone the repository:
 ```
@@ -147,6 +157,25 @@ cd src && pip install -r requirements.txt && pip install pytest
 ```
 cd .. && cd tests && pytest
 ```
+</details>
+
+<details> 
+  <summary><b>Test API</b></summary>
+
+To test the API functions do the following:
+1. Clone the repository:
+```
+git clone https://github.com/Nneji123/WordsAI.git
+```
+2. Change the working directory and install the requirements and pytest:
+```
+cd api && pip install -r requirements.txt && pip install pytest
+```
+3. Move to the tests folder and run the tests
+```
+cd .. && cd tests && pytest
+```
+</details>
 
 ## Deployment
 
@@ -242,12 +271,11 @@ http://3.95.202.74:80/docs**
 - [x] Add a frontend interface for the APIs with streamlit and html, css , javascript
 - [ ] Add more interesting features like; title generator and song finder, text2speech, pdf text extractor,  etc
 - [x] Add functional chatbot
-- [ ] update tests
-- [ ] Add error handling functionality to the backend of the html app
+- [x] update tests
 
 
 # License
-[Apache License](https://github.com/Nneji123/WordsAI/LICENSE.md)
+[Apache](https://github.com/Nneji123/WordsAI/LICENSE.md)
 
 
 
