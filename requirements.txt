@@ -27,7 +27,4 @@ pytz==2022.1
 better_profanity
 langdetect
 gTTs
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
 
