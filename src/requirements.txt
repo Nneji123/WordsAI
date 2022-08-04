@@ -15,7 +15,7 @@ autocorrect
 SpeechRecognition
 opencv-python-headless==4.2.0.32
 pytesseract==0.3.7
-numpy==1.19.3
+numpy==1.22.0
 pillow
 gunicorn
 pyresparser==1.0.6
