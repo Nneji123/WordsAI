@@ -34,6 +34,7 @@ from starlette.requests import Request
 from translate import Translator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from wordcloud import STOPWORDS, WordCloud
+from better_profanity import profanity
 
 app = FastAPI(
     title="WordsAI API",
@@ -426,3 +427,17 @@ async def wordcloud(text):
     img.seek(0)
     img_b64 = base64.b64encode(img.getvalue()).decode()
     return img_b64
+
+@app.post('/profanity')
+async def profanity(text: str) -> str:
+    """
+    The profanity function takes in a string of text and returns a string of the profanity words in the text.
+    The function uses the profanity library to extract the profanity words.
+    Args:
+        text:str: Pass in the text that is to be parsed
+
+    Returns:
+        A string of the profanity words in the text
+    """
+    profanity_words = profanity.censor(text)
+    return profanity_words

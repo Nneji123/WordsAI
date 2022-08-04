@@ -12,8 +12,8 @@ app = FastAPI(
     title="WordsAI WebApp Backend",
     description="""A collection of NLP Applications served as APIs using FastAPI.""",
     version="0.0.1",
-    docs_url=None, 
-    redoc_url=None
+    docs_url=None,
+    redoc_url=None,
 )
 
 origins = ["*"]
@@ -59,7 +59,9 @@ async def home(request: Request):
             sumary = " ".join(translate)
 
     return templates.TemplateResponse(
-        "translation.html", {"request": request, "message": text, "language": language, "sumary": sumary})
+        "translation.html",
+        {"request": request, "message": text, "language": language, "sumary": sumary},
+    )
 
 
 @app.get("/sentiment")
@@ -78,7 +80,8 @@ async def home(request: Request):
             sumary = " ".join(translate)
 
     return templates.TemplateResponse(
-        "sentiment.html", {"request": request, "message": text, "sumary": sumary})
+        "sentiment.html", {"request": request, "message": text, "sumary": sumary}
+    )
 
 
 @app.get("/summary")
@@ -97,12 +100,12 @@ async def home(request: Request):
             sumary = summarize(text, word_count=int(word_count))
             sentences = sent_tokenize(sumary)  # tokenize it
             sents = set(sentences)
-            sumary = ' '.join(sents)
+            sumary = " ".join(sents)
             word_cloud = wordcloud(sumary)
 
-    return templates.TemplateResponse("summary.html", {"request": request, "sumary": sumary, "wordcloud": word_cloud})
-
-
+    return templates.TemplateResponse(
+        "summary.html", {"request": request, "sumary": sumary, "wordcloud": word_cloud}
+    )
 
 
 @app.get("/autocorrect")
@@ -122,7 +125,9 @@ async def home(request: Request):
             sumary = " ".join(translate)
 
     return templates.TemplateResponse(
-        "autocorrect.html", {"request": request, "message": text, "language": language, "sumary": sumary})
+        "autocorrect.html",
+        {"request": request, "message": text, "language": language, "sumary": sumary},
+    )
 
 
 @app.get("/nme")
@@ -141,7 +146,8 @@ async def home(request: Request):
             sumary = translate
 
     return templates.TemplateResponse(
-        "nme.html", {"request": request, "message": text, "sumary": sumary})
+        "nme.html", {"request": request, "message": text, "sumary": sumary}
+    )
 
 
 @app.get("/chatbot")
@@ -174,7 +180,8 @@ async def resume_parser(request: Request, file: UploadFile) -> str:
                 pdf = f.read()
             sumary = ResumeParser(filename).get_extracted_data()
     return templates.TemplateResponse(
-        "resume.html", {"request": request, "message": filename, "sumary": sumary})
+        "resume.html", {"request": request, "message": filename, "sumary": sumary}
+    )
 
 
 @app.get("/ocr")
@@ -183,8 +190,8 @@ def home(request: Request):
 
 
 @app.post("/ocr_parser")
-async def get_ocr(request:Request, file: UploadFile = File(...)):
-        # write a function to save the uploaded file and return the file name
+async def get_ocr(request: Request, file: UploadFile = File(...)):
+    # write a function to save the uploaded file and return the file name
     if request.method == "POST":
         form = await request.form()
         if form["file"]:
@@ -213,7 +220,8 @@ async def get_ocr(request:Request, file: UploadFile = File(...)):
             # Converting string into list to dislay extracted text in seperate line
             new_string = new_string.split("\n")
             return templates.TemplateResponse(
-        "ocr.html", {"request": request, "sumary": new_string})
+                "ocr.html", {"request": request, "sumary": new_string}
+            )
 
 
 @app.post("/named_e_r")
@@ -227,32 +235,27 @@ async def home(request: Request):
             sumary = translate
 
     return templates.TemplateResponse(
-        "nme.html", {"request": request, "message": text, "sumary": sumary})
-
-
+        "nme.html", {"request": request, "message": text, "sumary": sumary}
+    )
 
 
 # create a bot instance
-bot = ChatBot("WordsAI",
-              preprocessors=[
-                  'chatterbot.preprocessors.clean_whitespace'
-              ],
-              logic_adapters=[
-                  'chatterbot.logic.BestMatch',
-                  'chatterbot.logic.TimeLogicAdapter'],
-              storage_adapter='chatterbot.storage.SQLStorageAdapter')
-
-
+bot = ChatBot(
+    "WordsAI",
+    preprocessors=["chatterbot.preprocessors.clean_whitespace"],
+    logic_adapters=["chatterbot.logic.BestMatch", "chatterbot.logic.TimeLogicAdapter"],
+    storage_adapter="chatterbot.storage.SQLStorageAdapter",
+)
 
 
 @app.get("/chatbot", response_class=HTMLResponse)
 def home(request: Request):
     return templates.TemplateResponse("chatbot.html", {"request": request})
 
+
 @app.get("/getChatBotResponse")
 def get_bot_response(msg: str):
     return str(bot.get_response(msg))
-
 
 
 @app.get("/speech")
@@ -262,14 +265,14 @@ def home(request: Request):
 
 @app.post("/speech_to_text")
 async def speech_to_text(request: Request, file: UploadFile = File(...)) -> str:
-        # write a function to save the uploaded file and return the file name
+    # write a function to save the uploaded file and return the file name
     if request.method == "POST":
         form = await request.form()
         if form["file"]:
 
             files = form["file"]
             files = await files.read()
-            
+
             filename = "./temp/file.wav"
             with open(filename, "wb+") as f:
                 f.write(files)
@@ -280,6 +283,25 @@ async def speech_to_text(request: Request, file: UploadFile = File(...)) -> str:
                 audio = r.record(source)
             text = r.recognize_sphinx(audio)
             return templates.TemplateResponse(
-                "speech.html", {"request": request, "sumary": text})
+                "speech.html", {"request": request, "sumary": text}
+            )
 
 
+@app.get("/profanity")
+def home(request: Request):
+    return templates.TemplateResponse("profanity.html", {"request": request})
+
+
+@app.post("/remove_profanity")
+async def home(request: Request):
+    sumary = ""
+    if request.method == "POST":
+        form = await request.form()
+        if form["message"]:
+            text = form["message"]
+            translate = remove_profanity(text)
+            sumary = translate
+
+    return templates.TemplateResponse(
+        "profanity.html", {"request": request, "message": text, "sumary": sumary}
+    )
