@@ -301,6 +301,7 @@ async def home(request: Request):
         "profanity.html", {"request": request, "message": text, "sumary": sumary}
     )
 
+
 # @app.get("/text_to_speech")
 # def home(request: Request):
 #     return templates.TemplateResponse("text2speech.html", {"request": request})

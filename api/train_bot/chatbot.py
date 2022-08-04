@@ -1,2 +1,3 @@
 from chatterbot import ChatBot
-chatbot = ChatBot('Training Example')
+
+chatbot = ChatBot("Training Example")

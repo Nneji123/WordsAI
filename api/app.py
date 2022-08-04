@@ -14,6 +14,7 @@ import spacy
 import speech_recognition as sr
 import sphinxbase
 from autocorrect import Speller
+from better_profanity import profanity
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 # route for generating wordcloud and a more accurate summarizer
@@ -34,7 +35,6 @@ from starlette.requests import Request
 from translate import Translator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from wordcloud import STOPWORDS, WordCloud
-from better_profanity import profanity
 
 app = FastAPI(
     title="WordsAI API",
@@ -375,19 +375,17 @@ async def named_entity_recognition(text: str) -> str:
 
 
 # create a bot instance
-bot = ChatBot("WordsAI",
-              preprocessors=[
-                  'chatterbot.preprocessors.clean_whitespace'
-              ],
-              logic_adapters=[
-                  'chatterbot.logic.BestMatch',
-                  'chatterbot.logic.TimeLogicAdapter'],
-              storage_adapter='chatterbot.storage.SQLStorageAdapter')
+bot = ChatBot(
+    "WordsAI",
+    preprocessors=["chatterbot.preprocessors.clean_whitespace"],
+    logic_adapters=["chatterbot.logic.BestMatch", "chatterbot.logic.TimeLogicAdapter"],
+    storage_adapter="chatterbot.storage.SQLStorageAdapter",
+)
 
 
 # train the bot
 trainer = ChatterBotCorpusTrainer(bot)
-#trainer.train("./train_bot/convo.yml", "chatterbot.corpus.english.greetings",
+# trainer.train("./train_bot/convo.yml", "chatterbot.corpus.english.greetings",
 #              "chatterbot.corpus.english.conversations")
 
 
@@ -428,7 +426,8 @@ async def wordcloud(text):
     img_b64 = base64.b64encode(img.getvalue()).decode()
     return img_b64
 
-@app.post('/profanity')
+
+@app.post("/profanity")
 async def profanity(text: str) -> str:
     """
     The profanity function takes in a string of text and returns a string of the profanity words in the text.

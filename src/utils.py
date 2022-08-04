@@ -18,6 +18,8 @@ from better_profanity import profanity
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from gensim.summarization import summarize
+from gtts import gTTS
+from langdetect import detect
 from nltk.tokenize import sent_tokenize
 from PIL import Image
 from pyresparser import ResumeParser
@@ -25,8 +27,6 @@ from starlette.requests import Request
 from translate import Translator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from wordcloud import STOPWORDS, WordCloud
-from langdetect import detect
-from gtts import gTTS
 
 nltk.download("words")
 nltk.download("stopwords")
@@ -93,11 +93,12 @@ def get_named_entity_recognition(text: str) -> str:
 def remove_profanity(text: str) -> str:
     return profanity.censor(text)
 
+
 def detect_language(text: str) -> str:
     return detect(text)
 
-def text_to_speech(language:str, text: str) -> str:
+
+def text_to_speech(language: str, text: str) -> str:
     tts = gTTS(text=text, lang=language, slow=False)
     tts.save("../src/temp/welcome.mp3")
-    #os.system("mpg321 /temp/welcome.mp3")
     return "Text to speech conversion successful"
