@@ -96,17 +96,6 @@ def remove_profanity(text: str) -> str:
 def detect_language(text: str) -> str:
     return detect(text)
 
-
-  
-# This module is imported so that we can 
-# play the converted audio
-import os
-mytext = 'Welcome to geeksforgeeks!'
-language = 'en'
-myobj = gTTS(text=mytext, lang=language, slow=False)
-myobj.save("welcome.mp3")
-#os.system("mpg321 welcome.mp3")
-
 def text_to_speech(language:str, text: str) -> str:
     tts = gTTS(text=text, lang=language, slow=False)
     tts.save("../src/temp/welcome.mp3")
