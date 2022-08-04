@@ -14,6 +14,8 @@
 ![reposize](https://img.shields.io/github/repo-size/Nneji123/WordsAI)
 [![Deploy](https://github.com/Nneji123/WordsAI/actions/workflows/deploy.yml/badge.svg)](https://github.com/Nneji123/WordsAI/actions/workflows/deploy.yml)
 [![CodeQL](https://github.com/Nneji123/WordsAI/actions/workflows/codeql.yml/badge.svg)](https://github.com/Nneji123/WordsAI/actions/workflows/codeql.yml)
+[![tests](https://github.com/Nneji123/WordsAI/actions/workflows/python-app.yml/badge.svg)](https://github.com/Nneji123/WordsAI/actions/workflows/python-app.yml)
+
 
 ## About
 >WordsAI is a collection of NLP/text and audio based applications served as APIs using the FastAPI framework. 
