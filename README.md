@@ -272,7 +272,7 @@ http://3.95.202.74:80/docs**
 
 # Todo
 - [x] Add a frontend interface for the APIs with streamlit and html, css , javascript
-- [ ] Add more interesting features like; title generator and song finder, text2speech, pdf text extractor,  etc
+- [ ] Add more interesting features like; title generator and song finder, text2speech, pdf text extractor, spam detection etc
 - [x] Add functional chatbot
 - [x] update tests
 
